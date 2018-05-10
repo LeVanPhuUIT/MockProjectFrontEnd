@@ -1,0 +1,78 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <h1>Thêm sách</h1>
+          </div>
+        </div>
+        <div class="row" style="background-color: white">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="row">
+              <div>
+                <h3>Thông tin sách</h3>
+                <br>
+                <p>Vui lòng điền đầy đủ thông tin trước khi tạo</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row" style="background-color: white">
+          <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+            <mat-form-field class="example-full-width">
+              <textarea matInput placeholder="Tựa sách"></textarea>
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+              <textarea matInput placeholder="Mô tả"></textarea>
+            </mat-form-field>
+            <select class="selectpicker form-control" id="sel1">
+              <option>Danh mục sách</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+            </select>
+            <select class="form-control" id="sel1">
+              <option>Chọn tác giả</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+            </select>
+            <select class="form-control" id="sel1">
+              <option>Nhà xuất bản</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+            </select>
+            <mat-form-field class="example-full-width">
+              <textarea matInput placeholder="Giá"></textarea>
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+              <textarea matInput placeholder="Số lượng"></textarea>
+            </mat-form-field>
+            <select class="form-control" id="sel1">
+              <option>Chọn trạng thái</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+            </select>
+            <button type="button" class="btn btn-danger">
+              <span class="glyphicon glyphicon-arrow-left"></span>Quay lại
+            </button>
+            <button type="button" class="btn btn-success">
+              <span class="glyphicon glyphicon-arrow-right"></span>Tạo
+            </button>
+          </div>
+          <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
+            <img src="http://poster.keepcalmandposters.com/3238016.jpg" alt="" width="500" height="500">
+            <br>
+            <label class="btn btn-primary" for="my-file-selector">
+              <input id="my-file-selector" type="file" style="display:none" onchange="$('#upload-file-info').html(this.files[0].name)"> Chọn hình
+            </label>
+            <span class='label label-info' id="upload-file-info"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
