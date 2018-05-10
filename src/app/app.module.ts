@@ -23,7 +23,6 @@ import {
 } from '@agm/core';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { LoginComponent } from './components/login/login.component';
-import { NotFoundComponent } from './not-found/not-found.component';
 
 
 @NgModule({
@@ -42,9 +41,6 @@ import { NotFoundComponent } from './not-found/not-found.component';
     AppComponent,
     AdminLayoutComponent,
     LoginComponent,
-    NotFoundComponent,
-  
-
 
   ],
   providers: [],

@@ -13,6 +13,7 @@ import { AuthorManagementComponent } from '../../components/author-management/au
 import { PublisherManagementComponent } from '../../components/publisher-management/publisher-management.component';
 import { BookManagementComponent } from '../../components/book-management/book-management.component';
 import { AddBookComponent } from '../../components/add-book/add-book.component';
+import { NotFoundComponent } from '../../components/not-found/not-found.component';
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -66,4 +67,5 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'notifications',  component: NotificationsComponent },
     { path: 'upgrade',        component: UpgradeComponent },
     { path: 'add-book', component: AddBookComponent},
+    { path: '**', component: NotFoundComponent },
 ];

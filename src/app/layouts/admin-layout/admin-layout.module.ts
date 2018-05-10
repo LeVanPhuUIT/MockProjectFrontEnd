@@ -13,6 +13,7 @@ import { NotificationsComponent } from '../../notifications/notifications.compon
 import { UpgradeComponent } from '../../upgrade/upgrade.component';
 import { ListBookComponent } from '../../components/list-book/list-book.component';
 import {AddBookComponent } from '../../components/add-book/add-book.component';
+import { NotFoundComponent } from '../../components/not-found/not-found.component';
 
 import { GridModule } from '@progress/kendo-angular-grid';
 import { ButtonsModule } from '@progress/kendo-angular-buttons';
@@ -54,6 +55,7 @@ import { BookManagementComponent } from '../../components/book-management/book-m
     PublisherManagementComponent,
     BookManagementComponent,
     AddBookComponent,
+    NotFoundComponent,
   ]
 })
 
