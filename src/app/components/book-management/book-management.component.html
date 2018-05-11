@@ -45,18 +45,13 @@
     </div>
     <div class="row">
       <kendo-grid [data]="gridView" [pageSize]="pageSize" [skip]="skip" [pageable]="true" [height]="700" (pageChange)="pageChange($event)">
-        <kendo-grid-column field="ProductName" title="Tựa sách" width="250">
+        <kendo-grid-column field="title" title="Tựa sách" width="250">
         </kendo-grid-column>
-        <kendo-grid-column field="UnitPrice" title="Giá" width="50">
+        <kendo-grid-column field="id" title="Giá" width="250">
         </kendo-grid-column>
-        <kendo-grid-column field="UnitPrice" title="Số lượng" width="120">
-        </kendo-grid-column>
-        <kendo-grid-column field="UnitPrice" title="Hình ảnh">
-        </kendo-grid-column>
-        <kendo-grid-column field="UnitsInStock" title="Trạng thái" width="120">
+        <kendo-grid-column field="ImgUrl" title="Hình ảnh">
         </kendo-grid-column>
         <kendo-grid-column field="Discontinued" title="Chức năng" width="200">
-
           <ng-template kendoGridCellTemplate let-dataItem>
             <button mat-mini-fab color="primary" (click)="onButtonClick()">Sửa</button>
             <button mat-mini-fab color="success" (click)="onButtonClick()">Detail</button>
