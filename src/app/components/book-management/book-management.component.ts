@@ -4,6 +4,7 @@ import { GridDataResult, PageChangeEvent } from '@progress/kendo-angular-grid';
 import { Router } from '@angular/router';
 import { Books } from '../../model/books';
 import { BookService } from '../../services/book.service';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-book-management',
@@ -21,13 +22,13 @@ export class BookManagementComponent implements OnInit {
   public pageSize = 10;
   public skip = 0;
   private data: Object[];
-
+  private subscription: Subscription;
 
   constructor(public urlRouter: Router, private bookService: BookService) {
     this.loadItems();
   }
   ngOnInit() {
-    //this.gridData = this.bookService.getAddBook();
+
   }
   onButtonClick() {
     console.log('click');
@@ -39,10 +40,17 @@ export class BookManagementComponent implements OnInit {
   }
 
   private loadItems(): void {
-    this.gridView = {
-      data: this.gridData.slice(this.skip, this.skip + this.pageSize),
-      total: this.gridData.length
-    };
+
+    this.bookService.getAddBook()
+      .then(x => {
+      this.gridData = x;
+        this.gridView = {
+          data: this.gridData.slice(this.skip, this.skip + this.pageSize),
+          total: this.gridData.length
+        };
+      });
+
+
   }
   private addBook() {
     this.urlRouter.navigateByUrl('/add-book');
