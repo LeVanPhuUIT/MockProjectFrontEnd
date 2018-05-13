@@ -47,9 +47,13 @@
       <kendo-grid [data]="gridView" [pageSize]="pageSize" [skip]="skip" [pageable]="true" [height]="700" (pageChange)="pageChange($event)">
         <kendo-grid-column field="Title" title="Tựa sách" width="250">
         </kendo-grid-column>
-        <kendo-grid-column field="BookID" title="Giá" width="250">
+        <kendo-grid-column field="Price" title="Giá" width="100">
+        </kendo-grid-column>
+        <kendo-grid-column field="Quantity" title="Số lượng" width="100">
         </kendo-grid-column>
         <kendo-grid-column field="ImgUrl" title="Hình ảnh">
+        </kendo-grid-column>
+        <kendo-grid-column field="IsActive" title="Trạng thái" width="250">
         </kendo-grid-column>
         <kendo-grid-column field="Discontinued" title="Chức năng" width="200">
           <ng-template kendoGridCellTemplate let-dataItem>

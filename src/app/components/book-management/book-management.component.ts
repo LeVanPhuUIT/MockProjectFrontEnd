@@ -41,7 +41,7 @@ export class BookManagementComponent implements OnInit {
 
   private loadItems(): void {
 
-    this.bookService.getAddBook()
+    this.bookService.getAllBook()
       .then(x => {
       this.gridData = x;
         this.gridView = {
