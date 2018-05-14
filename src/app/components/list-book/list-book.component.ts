@@ -6,6 +6,7 @@ import { CategoryService } from '../../services/category.service';
 import { Category } from '../../model/category';
 import { Observable } from 'rxjs/Observable';
 import { SyncAsync } from '@angular/compiler/src/util';
+import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 
 @Component({
   selector: 'app-list-book',
@@ -55,36 +56,46 @@ export class ListBookComponent implements OnInit {
           total: this.gridData.length
         };
       });
-    console.log("load data");
+    console.log('load data');
   }
 
   private addCategory() {
     this.categoryService.addcategory(this.newCategory)
-      .then(data => { this.loadItems() });
+      .then(data => {
+        this.loadItems();
+        this.myFunction();
+        this.newCategory.CateName = '';
+        this.newCategory.Description = '';
+      });
   }
 
-  private async removeCategory(categoryId: number ) {
+  myFunction() {
+    const x = document.getElementById('snackbar');
+    x.className = 'show';
+    setTimeout(function () { x.className = x.className.replace('show', ''); }, 3000);
+  }
+  private async removeCategory(categoryId: number) {
     this.categoryService.removeItem(categoryId);
     this.loadItems();
   }
 
-  private updateCategory(){
-    this.oldCategory.CateID=this.cateID;
-    this.oldCategory.CateName=this.cateName;
+  private updateCategory() {
+    this.oldCategory.CateID = this.cateID;
+    this.oldCategory.CateName = this.cateName;
     this.oldCategory.Description = this.cateDescription;
-    console.log("cate new");
+    console.log('cate new');
     console.log(this.cateName);
     console.log(this.cateDescription)
     this.categoryService.updatecategory(this.oldCategory);
   }
-  private senderData(dataItem: Category){
+  private senderData(dataItem: Category) {
     console.log(dataItem.CateID);
-    this.oldCategory=dataItem;
-    
-    this.cateID=dataItem.CateID;
-    this.cateName=dataItem.CateName;
-    this.cateDescription=dataItem.Description;
+    this.oldCategory = dataItem;
 
-  
+    this.cateID = dataItem.CateID;
+    this.cateName = dataItem.CateName;
+    this.cateDescription = dataItem.Description;
+
+
   }
 }

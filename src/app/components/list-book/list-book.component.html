@@ -26,10 +26,11 @@
           <!-- Modal body -->
           <div class="modal-body">
             <mat-form-field class="example-full-width">
-              <textarea matInput placeholder="Tên danh mục" name="CateName" [(ngModel)]="newCategory.cateName"></textarea>
+              <textarea matInput placeholder="Tên danh mục" name="CateName" [(ngModel)]="newCategory.CateName"></textarea>
             </mat-form-field>
+            <div id="snackbar">Thêm danh mục thành công</div>
             <mat-form-field class="example-full-width">
-              <textarea matInput placeholder="Mô tả" name="Description" [(ngModel)]="newCategory.description"></textarea>
+              <textarea matInput placeholder="Mô tả" name="Description" [(ngModel)]="newCategory.Description"></textarea>
             </mat-form-field>
           </div>
 
@@ -44,6 +45,12 @@
     </div>
     <div class="row">
       <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1" style="padding-left: 0px;">
+        <!-- <select class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+          <option value="10">10 Rows</option>
+          <option value="15">15 Rows</option>
+          <option value="20">20 Rows</option>
+          <option value="25">25 Rows</option>
+        </select> -->
         <div class="dropdown">
           <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">10 Rows
             <span class="caret"></span>
@@ -57,6 +64,12 @@
             </li>
             <li>
               <a href="#">20 Rows</a>
+            </li>
+            <li>
+              <a href="#">25 Rows</a>
+            </li>
+            <li>
+              <a href="#">30 Rows</a>
             </li>
           </ul>
         </div>

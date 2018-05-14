@@ -33,14 +33,16 @@ export class CategoryService {
       // }, error => console.log('Could not load category.'));
   }
 
-  addcategory(newcategory: Category){
+  addcategory(newcategory: Category) {
     console.log('add category');
     const headers = new Headers();
     headers.append('Content-Type', 'application/json; charset=utf-8');
     console.log('add category : ' + JSON.stringify(newcategory));
 
 
-    return this.http.post(`${this.baseUrl}Categories/`, JSON.stringify(newcategory), { headers: headers }).toPromise().then(res => res.json());
+    return this.http.post(`${this.baseUrl}Categories/`, JSON.stringify(newcategory), { headers: headers })
+    .toPromise().
+    then(res => res.json());
       // .map(response => response.json()).subscribe(data => {
       //   this.dataStore.categoryList.push(data);
       //   this._categoryList.next(Object.assign({}, this.dataStore).categoryList);
