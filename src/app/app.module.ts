@@ -33,9 +33,7 @@ import { LoginComponent } from './components/login/login.component';
     ComponentsModule,
     RouterModule,
     AppRoutingModule,
-    AgmCoreModule.forRoot({
-      apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
-    })
+    
   ],
   declarations: [
     AppComponent,

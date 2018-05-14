@@ -1,5 +1,5 @@
 import { Component, OnInit, NgModule } from '@angular/core';
-import { products} from '../../model/products';
+import { products } from '../../model/products';
 import { GridDataResult, PageChangeEvent } from '@progress/kendo-angular-grid';
 import { Router } from '@angular/router';
 import { CategoryService } from '../../services/category.service';
@@ -24,6 +24,10 @@ export class ListBookComponent implements OnInit {
   showEditor = true;
   myName: string;
   newCategory: Category;
+  oldCategory: Category;
+  private cateID: number;
+  private cateName: string;
+  private cateDescription: string;
 
   constructor(public urlRouter: Router, private categoryService: CategoryService) {
     this.newCategory = new Category();
@@ -43,15 +47,42 @@ export class ListBookComponent implements OnInit {
 
   private loadItems(): void {
     this.categoryService.getAll()
-    .then(x => {
-      this.gridData = x;
-      this.gridView = {
-        data: this.gridData.slice(this.skip, this.skip + this.pageSize),
-        total: this.gridData.length
-      };
-    });
+      .then(x => {
+        this.gridData = x;
+        this.gridView = {
+          data: this.gridData.slice(this.skip, this.skip + this.pageSize),
+          total: this.gridData.length
+        };
+      });
+    console.log("load data");
   }
-  private addBook() {
-    this.urlRouter.navigateByUrl('/add-book');
+
+  private addCategory() {
+    this.categoryService.addcategory(this.newCategory)
+      .then(data => { this.loadItems() });
+  }
+
+  private removeCategory(categoryId: number) {
+    this.categoryService.removeItem(categoryId);
+  }
+
+  private updateCategory(){
+    this.oldCategory.CateID=this.cateID;
+    this.oldCategory.CateName=this.cateName;
+    this.oldCategory.Description = this.cateDescription;
+    console.log("cate new");
+    console.log(this.cateName);
+    console.log(this.cateDescription)
+    this.categoryService.updatecategory(this.oldCategory);
+  }
+  private senderData(dataItem: Category){
+    console.log(dataItem.CateID);
+    this.oldCategory=dataItem;
+    
+    this.cateID=dataItem.CateID;
+    this.cateName=dataItem.CateName;
+    this.cateDescription=dataItem.Description;
+
+  
   }
 }

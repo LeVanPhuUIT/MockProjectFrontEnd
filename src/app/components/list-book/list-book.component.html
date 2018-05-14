@@ -10,7 +10,37 @@
 <div class="main-content">
   <div class="container-fluid">
     <div class="row">
-      <button type="button" class="btn btn-info" (click)="addBook()">Thêm sách</button>
+      <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modalAddCategory">Thêm danh mục</button>
+    </div>
+    <!-- The Modal add category -->
+    <div class="modal" id="modalAddCategory">
+      <div class="modal-dialog">
+        <div class="modal-content">
+
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">Thâm danh mục sách</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+
+          <!-- Modal body -->
+          <div class="modal-body">
+            <mat-form-field class="example-full-width">
+              <textarea matInput placeholder="Tên danh mục" name="CateName" [(ngModel)]="newCategory.cateName"></textarea>
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+              <textarea matInput placeholder="Mô tả" name="Description" [(ngModel)]="newCategory.description"></textarea>
+            </mat-form-field>
+          </div>
+
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+            <button type="button" class="btn btn-primary" (click)="addCategory();">Thêm</button>
+          </div>
+
+        </div>
+      </div>
     </div>
     <div class="row">
       <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1" style="padding-left: 0px;">
@@ -42,19 +72,67 @@
       </div>
     </div>
     <div class="row">
-      <kendo-grid [data]="gridView" [pageSize]="pageSize" [skip]="skip" [pageable]="true" [height]="700" (pageChange)="pageChange($event)">
-        <kendo-grid-column field="CateName" title="Loại sách" width="250">
-        </kendo-grid-column>
-        <kendo-grid-column field="Description" title="Mô tả" >
-        </kendo-grid-column>
-        <kendo-grid-column field="Discontinued" title="Chức năng" width="200">
-          <ng-template kendoGridCellTemplate let-dataItem>
-            <button mat-mini-fab color="primary" (click)="onButtonClick()">Sửa</button>
-            <button mat-mini-fab color="success" (click)="onButtonClick()">Xóa</button>
-            <button mat-mini-fab color="warn" (click)="onButtonClick()">Xóa</button>
-          </ng-template>
-        </kendo-grid-column>
-      </kendo-grid>
+      <form novalidate #myForm="ngForm">
+        <kendo-grid [data]="gridView" [pageSize]="pageSize" [skip]="skip" [pageable]="true" [height]="700" (pageChange)="pageChange($event)"
+          (edit)="editHandler($event)" (cancel)="cancelHandler($event)">
+          <kendo-grid-column field="CateID" title="Id" width="0">
+            <ng-template kendoGridEditTemplate let-dataItem="dataItem">
+              <input [(ngModel)]="dataItem.CateID" kendoGridFocusable name="CateID" class="k-textbox" required/>
+            </ng-template>
+          </kendo-grid-column>
+          <kendo-grid-column field="CateName" title="Loại sách" width="250">
+            <ng-template kendoGridEditTemplate let-dataItem="dataItem">
+              <input [(ngModel)]="dataItem.CateName" kendoGridFocusable name="CateName" class="k-textbox" required/>
+            </ng-template>
+          </kendo-grid-column>
+          <kendo-grid-column field="Description" title="Mô tả">
+            <ng-template kendoGridEditTemplate let-dataItem="dataItem">
+              <input [(ngModel)]="dataItem.Description" kendoGridFocusable name="Description" class="k-textbox" required/>
+            </ng-template>
+          </kendo-grid-column>
+          <kendo-grid-column field="Discontinued" title="Chức năng" width="200">
+            <ng-template kendoGridCellTemplate let-dataItem>
+              <button mat-mini-fab color="primary" data-toggle="modal" data-target="#modalEditCategory" (click)="senderData(dataItem)">Edit</button>
+              <button mat-mini-fab color="success" (click)="onButtonClick()">Detail</button>
+              <button mat-mini-fab color="warn" (click)="removeCategory(dataItem.CateID);">Delete</button>
+            </ng-template>
+          </kendo-grid-column>
+        </kendo-grid>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- The Modal Edit -->
+<div class="modal" id="modalEditCategory">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Edit category</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+          <mat-form-field class="example-full-width" width="0">
+              <textarea matInput placeholder="CateID" name="CateID" [(ngModel)]="cateID"></textarea>
+          </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <textarea matInput placeholder="Tên danh mục" name="CateName" [(ngModel)]="cateName"></textarea>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <textarea matInput placeholder="Mô tả" name="Description" [(ngModel)]="cateDescription"></textarea>
+        </mat-form-field>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-danger" (click)="updateCategory()">Update</button>
+      </div>
+
     </div>
   </div>
 </div>

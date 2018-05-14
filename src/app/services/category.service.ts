@@ -33,31 +33,31 @@ export class CategoryService {
       // }, error => console.log('Could not load category.'));
   }
 
-  addcategory(newcategory: Category) {
+  addcategory(newcategory: Category){
     console.log('add category');
     const headers = new Headers();
     headers.append('Content-Type', 'application/json; charset=utf-8');
     console.log('add category : ' + JSON.stringify(newcategory));
 
 
-    this.http.post(`${this.baseUrl}Categorys/`, JSON.stringify(newcategory), { headers: headers })
-      .map(response => response.json()).subscribe(data => {
-        this.dataStore.categoryList.push(data);
-        this._categoryList.next(Object.assign({}, this.dataStore).categoryList);
-      }, error => console.log('Could not add category.'));
+    return this.http.post(`${this.baseUrl}Categories/`, JSON.stringify(newcategory), { headers: headers }).toPromise().then(res => res.json());
+      // .map(response => response.json()).subscribe(data => {
+      //   this.dataStore.categoryList.push(data);
+      //   this._categoryList.next(Object.assign({}, this.dataStore).categoryList);
+      // }, error => console.log('Could not add category.'));
   }
 
-  public updatecategory(newcategory: Category) {
+  public updatecategory(oldcategory: Category) {
     console.log('updatecategory');
     const headers = new Headers();
     headers.append('Content-Type', 'application/json; charset=utf-8');
-    console.log('add category : ' + JSON.stringify(newcategory));
+    console.log('Update category : ' + JSON.stringify(oldcategory));
 
-
-    this.http.put(`${this.baseUrl}Categorys/`, JSON.stringify(newcategory), { headers: headers })
+    console.log(oldcategory.CateID);
+    this.http.put(`${this.baseUrl}Categories/${oldcategory.CateID}`, JSON.stringify(oldcategory), { headers: headers })
       .map(response => response.json()).subscribe(data => {
         this.dataStore.categoryList.forEach((t, i) => {
-          if (t.cateId === data.id) { this.dataStore.categoryList[i] = data; }
+          if (t.CateID === data.id) { this.dataStore.categoryList[i] = data; }
         });
       }, error => console.log('Could not update category.'));
   };
@@ -66,9 +66,9 @@ export class CategoryService {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json; charset=utf-8');
     console.log('removeItem:' + categoryId);
-    this.http.delete(`${this.baseUrl}Category/${categoryId}`, { headers: headers }).subscribe(response => {
+    this.http.delete(`${this.baseUrl}Categories/${categoryId}`, { headers: headers }).subscribe(response => {
       this.dataStore.categoryList.forEach((t, i) => {
-        if (t.cateId === categoryId) { this.dataStore.categoryList.splice(i, 1); }
+        if (t.CateID === categoryId) { this.dataStore.categoryList.splice(i, 1); }
       });
 
       this._categoryList.next(Object.assign({}, this.dataStore).categoryList);
