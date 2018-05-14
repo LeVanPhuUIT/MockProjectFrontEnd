@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { CategoryService } from '../../services/category.service';
 import { Category } from '../../model/category';
 import { Observable } from 'rxjs/Observable';
+import { SyncAsync } from '@angular/compiler/src/util';
 
 @Component({
   selector: 'app-list-book',
@@ -62,8 +63,9 @@ export class ListBookComponent implements OnInit {
       .then(data => { this.loadItems() });
   }
 
-  private removeCategory(categoryId: number) {
+  private async removeCategory(categoryId: number ) {
     this.categoryService.removeItem(categoryId);
+    this.loadItems();
   }
 
   private updateCategory(){
