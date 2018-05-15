@@ -19,8 +19,8 @@ export class ListBookComponent implements OnInit {
   public gridData: Category[];
   public gridView: GridDataResult;
   public pageSize = 10;
-  public currentPage =1;
-  public searchString = "";
+  public currentPage = 1;
+  public searchString = '';
   public skip = 0;
   private data: Object[];
 
@@ -46,7 +46,7 @@ export class ListBookComponent implements OnInit {
 
   public pageChange(event: PageChangeEvent): void {
     this.skip = event.skip;
-    this.currentPage = this.skip / this.pageSize +1;
+    this.currentPage = this.skip / this.pageSize + 1;
     console.log(this.currentPage);
     this.loadItems();
   }
@@ -67,10 +67,10 @@ export class ListBookComponent implements OnInit {
     this.categoryService.getPagingCategory(this.currentPage, this.pageSize, this.searchString)
       .then(x => {
         this.gridView = {
-          data: x["category"],
-          total: x["total"],
+          data: x['category'],
+          total: x['total'],
         };
-        console.log(x["category"]);
+        console.log(x['category']);
       });
     console.log('load data');
   }
