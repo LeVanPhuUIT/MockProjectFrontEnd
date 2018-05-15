@@ -11,33 +11,26 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding-left: 0px;">
-        <button type="button" class="btn btn-info" (click)="addBook()">Thêm tác giả</button>
+        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modalAddAuthor">Thêm tác giả</button>
       </div>
     </div>
     <div class="row">
       <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" style="padding-left: 0px;">
-        <div class="dropdown">
-          <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">10 Rows
-            <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu">
-            <li>
-              <a href="#">10 Rows</a>
-            </li>
-            <li>
-              <a href="#">15 Rows</a>
-            </li>
-            <li>
-              <a href="#">20 Rows</a>
-            </li>
-          </ul>
-        </div>
+        <select class="btn btn-primary dropdown-toggle" [(ngModel)]="pageSize" (change)="loadItems()">
+          <option value="2">2 Rows</option>
+          <option value="3">3 Rows</option>
+          <option value="5">5 Rows</option>
+          <option value="10">10 Rows</option>
+          <option value="15">15 Rows</option>
+          <option value="20">20 Rows</option>
+          <option value="25">25 Rows</option>
+        </select>
       </div>
       <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
         <div class="input-group no-border">
-          <input type="text" value="" class="form-control" placeholder="Search...">
+          <input type="text" value="" class="form-control" placeholder="Search..." [(ngModel)]="searchString" (keyup.enter)="search()">
           <button mat-raised-button type="submit" class="btn btn-white btn-round btn-just-icon">
-            <i class="material-icons">search</i>
+            <i class="material-icons" (click)="search()" >search</i>
             <div class="ripple-container"></div>
           </button>
         </div>
@@ -45,25 +38,95 @@
     </div>
     <div class="row">
       <kendo-grid [data]="gridView" [pageSize]="pageSize" [skip]="skip" [pageable]="true" [height]="700" (pageChange)="pageChange($event)">
-        <kendo-grid-column field="ProductName" title="Tên tác giả" width="250">
+        <kendo-grid-column field="AuthorID" title="Id" width="0">
+          <ng-template kendoGridEditTemplate let-dataItem="dataItem">
+            <input [(ngModel)]="dataItem.AuthorID" kendoGridFocusable name="AuthorID" class="k-textbox" required/>
+          </ng-template>
         </kendo-grid-column>
-        <kendo-grid-column field="Category.CategoryName" title="Tên sách" width="250">
+        <kendo-grid-column field="AuthorName" title="Tên tác giả" width="250">
+          <ng-template kendoGridEditTemplate let-dataItem="dataItem">
+            <input [(ngModel)]="dataItem.AuthorName" kendoGridFocusable name="AuthorName" class="k-textbox" required/>
+          </ng-template>
         </kendo-grid-column>
-        <kendo-grid-column field="UnitPrice" title="Số lượng" width="120">
-        </kendo-grid-column>
-        <kendo-grid-column field="UnitPrice" title="Hình ảnh">
-        </kendo-grid-column>
-        <kendo-grid-column field="UnitsInStock" title="Trạng thái" width="120">
+        <kendo-grid-column field="History" title="Tiểu sử">
+          <ng-template kendoGridEditTemplate let-dataItem="dataItem">
+            <input [(ngModel)]="dataItem.History" kendoGridFocusable name="History" class="k-textbox" required/>
+          </ng-template>
         </kendo-grid-column>
         <kendo-grid-column field="Discontinued" title="Chức năng" width="200">
-
           <ng-template kendoGridCellTemplate let-dataItem>
-            <button mat-mini-fab color="primary" (click)="onButtonClick()">Sửa</button>
+            <button mat-mini-fab color="primary" data-toggle="modal" data-target="#modalEditAuthor" (click)="onButtonClick()">Sửa</button>
             <button mat-mini-fab color="success" (click)="onButtonClick()">Detail</button>
             <button mat-mini-fab color="warn" (click)="onButtonClick()">Xóa</button>
           </ng-template>
         </kendo-grid-column>
       </kendo-grid>
+    </div>
+  </div>
+</div>
+
+<!-- The Modal add author -->
+<div class="modal" id="modalAddAuthor">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Thêm tác giả</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <mat-form-field class="example-full-width">
+          <textarea matInput placeholder="Tên tác gải" name="AuthorName" ></textarea>
+        </mat-form-field>
+        <div id="snackbar">Thêm tác giả thành công</div>
+        <mat-form-field class="example-full-width">
+          <textarea matInput placeholder="Tiểu sử" name="History"></textarea>
+        </mat-form-field>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+        <button type="button" class="btn btn-primary" (click)="addCategory();">Thêm</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- The Modal Edit -->
+<div class="modal" id="modalEditAuthor">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Edit author</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <mat-form-field class="example-full-width" width="0">
+          <textarea matInput placeholder="AuthorID" name="AuthorID"></textarea>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <textarea matInput placeholder="Tên danh mục" name="AuthorName"></textarea>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <textarea matInput placeholder="Mô tả" name="History"></textarea>
+        </mat-form-field>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-danger" (click)="updateCategory()">Update</button>
+      </div>
+
     </div>
   </div>
 </div>
