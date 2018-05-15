@@ -28,7 +28,7 @@ export class CategoryService {
       .toPromise()
       .then(res => res.json())
   }
-  
+
   public getAll() {
     return this.http.get(`${this.baseUrl}Categories`)
       .toPromise()

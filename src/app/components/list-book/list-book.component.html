@@ -28,7 +28,7 @@
             <mat-form-field class="example-full-width">
               <textarea matInput placeholder="Tên danh mục" name="CateName" [(ngModel)]="newCategory.CateName"></textarea>
             </mat-form-field>
-            <div id="snackbar">Thêm danh mục thành công</div>
+            <div id="snackbarAdd">Thêm danh mục thành công</div>
             <mat-form-field class="example-full-width">
               <textarea matInput placeholder="Mô tả" name="Description" [(ngModel)]="newCategory.Description"></textarea>
             </mat-form-field>
@@ -42,7 +42,7 @@
         </div>
       </div>
     </div>
-    
+
     <div class="row">
       <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" style="padding-left: 0px;">
         <select class="btn btn-primary dropdown-toggle" [(ngModel)]="pageSize" (change)="loadItems()">
@@ -133,12 +133,13 @@
 
       <!-- Modal body -->
       <div class="modal-body">
-        <mat-form-field class="example-full-width" width="0">
-          <textarea matInput placeholder="CateID" name="CateID" [(ngModel)]="cateID"></textarea>
+        <mat-form-field class="example-full-width" style="display:none;">
+          <textarea matInput name="CateID" [(ngModel)]="cateID" style="display:none;"></textarea>
         </mat-form-field>
         <mat-form-field class="example-full-width">
           <textarea matInput placeholder="Tên danh mục" name="CateName" [(ngModel)]="cateName"></textarea>
         </mat-form-field>
+        <div id="snackbarEdit">Thêm danh mục thành công</div>
         <mat-form-field class="example-full-width">
           <textarea matInput placeholder="Mô tả" name="Description" [(ngModel)]="cateDescription"></textarea>
         </mat-form-field>

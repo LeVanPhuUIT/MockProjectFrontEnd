@@ -46,7 +46,7 @@ export class ListBookComponent implements OnInit {
 
   public pageChange(event: PageChangeEvent): void {
     this.skip = event.skip;
-    this.currentPage = this.skip/this.pageSize +1;
+    this.currentPage = this.skip / this.pageSize +1;
     console.log(this.currentPage);
     this.loadItems();
   }
@@ -73,21 +73,20 @@ export class ListBookComponent implements OnInit {
         console.log(x["category"]);
       });
     console.log('load data');
-    
   }
 
   private addCategory() {
     this.categoryService.addcategory(this.newCategory)
       .then(data => {
         this.loadItems();
-        this.myFunction();
+        this.toast('snackbarAdd');
         this.newCategory.CateName = '';
         this.newCategory.Description = '';
       });
   }
 
-  myFunction() {
-    const x = document.getElementById('snackbar');
+  toast(method: string) {
+    const x = document.getElementById(method);
     x.className = 'show';
     setTimeout(function () { x.className = x.className.replace('show', ''); }, 3000);
   }
@@ -114,7 +113,7 @@ export class ListBookComponent implements OnInit {
     this.cateName = dataItem.CateName;
     this.cateDescription = dataItem.Description;
   }
-  private search(){
+  private search() {
     this.loadItems();
   }
 }
