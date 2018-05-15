@@ -23,7 +23,13 @@ export class CategoryService {
     this.categoryList = this._categoryList.asObservable();
   }
 
-  getAll() {
+  public getPagingCategory(currentPage: number, pageSize: number, searchString: string){
+    return this.http.get(`${this.baseUrl}Categories?currentPage=${currentPage}&pageSize=${pageSize}&searchString=${searchString}`)
+      .toPromise()
+      .then(res => res.json())
+  }
+  
+  public getAll() {
     return this.http.get(`${this.baseUrl}Categories`)
       .toPromise()
       .then(res => res.json())
@@ -33,7 +39,24 @@ export class CategoryService {
       // }, error => console.log('Could not load category.'));
   }
 
-  addcategory(newcategory: Category) {
+  public addcategory(newcategory: Category) {
+    console.log('add category');
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json; charset=utf-8');
+    console.log('add category : ' + JSON.stringify(newcategory));
+
+
+    return this.http.post(`${this.baseUrl}Categories/`, JSON.stringify(newcategory), { headers: headers })
+    .toPromise().
+    then(res => res.json());
+      // .map(response => response.json()).subscribe(data => {
+      //   this.dataStore.categoryList.push(data);
+      //   this._categoryList.next(Object.assign({}, this.dataStore).categoryList);
+      // }, error => console.log('Could not add category.'));
+  }
+
+
+  public addcategory1<T>(newcategory: T) {
     console.log('add category');
     const headers = new Headers();
     headers.append('Content-Type', 'application/json; charset=utf-8');
@@ -64,7 +87,7 @@ export class CategoryService {
       }, error => console.log('Could not update category.'));
   };
 
-  removeItem(categoryId: number) {
+  public removeItem(categoryId: number) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json; charset=utf-8');
     console.log('removeItem:' + categoryId);

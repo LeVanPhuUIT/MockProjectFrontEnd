@@ -19,6 +19,8 @@ export class ListBookComponent implements OnInit {
   public gridData: Category[];
   public gridView: GridDataResult;
   public pageSize = 10;
+  public currentPage =1;
+  public searchString = "";
   public skip = 0;
   private data: Object[];
 
@@ -44,19 +46,34 @@ export class ListBookComponent implements OnInit {
 
   public pageChange(event: PageChangeEvent): void {
     this.skip = event.skip;
+    this.currentPage = this.skip/this.pageSize +1;
+    console.log(this.currentPage);
     this.loadItems();
   }
 
+  // private loadItems(): void {
+  //   this.categoryService.getAll()
+  //     .then(x => {
+  //       this.gridData = x;
+  //       this.gridView = {
+  //         data: this.gridData.slice(this.skip, this.skip + this.pageSize),
+  //         total: this.gridData.length
+  //       };
+  //     });
+  //   console.log('load data');
+  // }
+
   private loadItems(): void {
-    this.categoryService.getAll()
+    this.categoryService.getPagingCategory(this.currentPage, this.pageSize, this.searchString)
       .then(x => {
-        this.gridData = x;
         this.gridView = {
-          data: this.gridData.slice(this.skip, this.skip + this.pageSize),
-          total: this.gridData.length
+          data: x["category"],
+          total: x["total"],
         };
+        console.log(x["category"]);
       });
     console.log('load data');
+    
   }
 
   private addCategory() {
@@ -88,6 +105,7 @@ export class ListBookComponent implements OnInit {
     console.log(this.cateDescription)
     this.categoryService.updatecategory(this.oldCategory);
   }
+
   private senderData(dataItem: Category) {
     console.log(dataItem.CateID);
     this.oldCategory = dataItem;
@@ -95,7 +113,8 @@ export class ListBookComponent implements OnInit {
     this.cateID = dataItem.CateID;
     this.cateName = dataItem.CateName;
     this.cateDescription = dataItem.Description;
-
-
+  }
+  private search(){
+    this.loadItems();
   }
 }
