@@ -23,6 +23,10 @@ export class AddBookComponent implements OnInit {
   public listCategoryName: Array<string>;
   public listAuthorName: Array<string>;
   public listPublisher: Array<string>;
+  public serverApi = 'http://localhost:18595/image/';
+  public imageUrlDefault = '/assets/img/default-image.png';
+  public fileToUpload: File = null;
+  private imageUrl: string;
 
   constructor(public urlRouter: Router, private bookService: BookService,
     private categoryService: CategoryService, private authorService: AuthorService,
@@ -34,16 +38,13 @@ export class AddBookComponent implements OnInit {
   ngOnInit() {
     this.onLoad();
   }
-  private addBook() {
-    this.bookService.addBook(this.newBook);
-  }
 
   private onLoad() {
     this.categoryService.getAll()
       .then(x => {
         this.listCategoryName = x['CateInfo'],
           console.log(this.listCategoryName);
-        //console.log(this.categoryList[1].CateName);
+        // console.log(this.categoryList[1].CateName);
       });
 
     this.authorService.getAll()
@@ -59,30 +60,37 @@ export class AddBookComponent implements OnInit {
       });
   }
 
-  imageUrl: string = "/assets/img/default-image.png";
-  fileToUpload: File = null;
-
   handleFileInput(file: FileList) {
-    console.log(event);
     this.fileToUpload = file.item(0);
-
-    //Show image preview
-    var reader = new FileReader();
+    this.imageUrl = this.serverApi + file.item(0).name;
+    console.log(this.imageUrl);
+    console.log(event.target);
+    // Show image preview
+    const reader = new FileReader();
     reader.onload = (event: any) => {
-      this.imageUrl = event.target.result;
+      this.imageUrlDefault = event.target.result;
     }
     reader.readAsDataURL(this.fileToUpload);
   }
 
   OnSubmit(Image) {
+    console.log(Image);
     this.bookService.postFile1(this.fileToUpload).subscribe(
       data => {
         console.log('done');
         Image.value = null;
-        this.imageUrl = "/assets/img/default-image.png";
-
+        this.imageUrlDefault = '/assets/img/default-image.png';
       }
     );
   }
 
+  public senderData(formBook) {
+    this.newBook = formBook.value as Books;
+    this.newBook.ImgUrl = this.imageUrl
+    console.log(this.newBook);
+  }
+
+  public addBook() {
+    this.bookService.addBook(this.newBook);
+  }
 }

@@ -42,10 +42,11 @@ export class BookService {
         headers.append('Content-Type', 'application/json; charset=utf-8');
         console.log('add Book : ' + JSON.stringify(newBook));
 
-        this.http.post(`${this.baseUrl}/`, JSON.stringify(newBook), { headers: headers })
+        this.http.post(`${this.baseUrl}`, JSON.stringify(newBook), { headers: headers })
             .map(response => response.json()).subscribe(data => {
                 this.dataStore.bookList.push(data);
                 this._bookList.next(Object.assign({}, this.dataStore).bookList);
+                alert('add book thành công');
             }, error => console.log('Could not add book.'));
     }
 
@@ -56,7 +57,7 @@ export class BookService {
         console.log('add Book : ' + JSON.stringify(newBook));
 
 
-        this.http.put(`${this.baseUrl}/`, JSON.stringify(newBook), { headers: headers })
+        this.http.put(`${this.baseUrl}`, JSON.stringify(newBook), { headers: headers })
             .map(response => response.json()).subscribe(data => {
                 this.dataStore.bookList.forEach((t, i) => {
                     if (t.BookID === data.id) { this.dataStore.bookList[i] = data; }
@@ -68,7 +69,7 @@ export class BookService {
         const headers = new Headers();
         headers.append('Content-Type', 'application/json; charset=utf-8');
         console.log('removeItem:' + BookId);
-        this.http.delete(`${this.baseUrl}/${BookId}`, { headers: headers }).subscribe(response => {
+        this.http.delete(`${this.baseUrl}${BookId}`, { headers: headers }).subscribe(response => {
             this.dataStore.bookList.forEach((t, i) => {
                 if (t.BookID === BookId) { this.dataStore.bookList.splice(i, 1); }
             });

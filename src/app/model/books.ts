@@ -14,10 +14,11 @@ export class Books {
     AuthorID: number;
     PubID: number;
     Summary: string;
-    ImgUrl: string;
+    public ImgUrl: string;
     Price: number;
     Quantity: number;
     CreateDay: string;
     ModifiedDay: string;
     IsActive: boolean;
+    Status: string;
 }
