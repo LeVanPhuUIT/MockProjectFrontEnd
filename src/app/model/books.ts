@@ -8,16 +8,16 @@ export class Books {
     publisher: Publisher;
     category: Category;
     comment: Comment[];
-    bookId: number;
-    title: string;
-    cateId: number;
-    authorId: number;
-    pubId: number;
-    summary: string;
-    imgUrl: string;
-    price: number;
-    quantity: number;
-    createDay: string;
-    modifiedDay: string;
-    isActive: boolean;
+    BookID: number;
+    Title: string;
+    CateID: number;
+    AuthorID: number;
+    PubID: number;
+    Summary: string;
+    ImgUrl: string;
+    Price: number;
+    Quantity: number;
+    CreateDay: string;
+    ModifiedDay: string;
+    IsActive: boolean;
 }

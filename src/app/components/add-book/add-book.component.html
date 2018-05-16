@@ -28,22 +28,16 @@
                 <textarea matInput placeholder="Mô tả"></textarea>
               </mat-form-field>
               <select class="selectpicker form-control" id="sel1">
-                <option>Danh mục sách</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
+                <option>Chọn danh mục sách</option>
+                <option *ngFor="let item of listCategoryName" [value]="item.CateID">{{item.CateName}}</option>
               </select>
               <select class="form-control" id="sel1">
                 <option>Chọn tác giả</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
+                <option *ngFor="let item of listAuthorName" [value]="item.AuthorID">{{item.AuthorName}}</option>
               </select>
               <select class="form-control" id="sel1">
                 <option>Nhà xuất bản</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
+                <option *ngFor="let item of listPublisher" [value]="item.PubID">{{item.Name}}</option>
               </select>
               <mat-form-field class="example-full-width">
                 <textarea matInput placeholder="Giá"></textarea>
@@ -65,12 +59,12 @@
               </button>
             </div>
             <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
-              <img src="http://poster.keepcalmandposters.com/3238016.jpg" alt="" width="500" height="500">
-              <br>
-              <label class="btn btn-primary" for="my-file-selector">
-                <input id="my-file-selector" type="file" style="display:none" onchange="$('#upload-file-info').html(this.files[0].name)"> Chọn hình
-              </label>
-              <span class='label label-info' id="upload-file-info"></span>
+              <form #imageForm=ngForm (ngSubmit)="OnSubmit(Image)">
+                <img [src]="imageUrl" style="width:500px;height:500px">
+                <input type="file" #Image accept="image/*" (change)="handleFileInput($event.target.files)">
+                <button type="submit" class="btn-large btn-submit" [disabled]="Image.value=='' || !imageForm.valid">Submit</button>
+              </form>
+              
             </div>
           </div>
         </form>

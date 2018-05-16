@@ -16,13 +16,13 @@ import { Subscription } from 'rxjs/Subscription';
 
 
 export class BookManagementComponent implements OnInit {
-  // public gridData: any[] = products;
   public gridData: Books[];
   public gridView: GridDataResult;
   public pageSize = 10;
+  public currentPage = 1;
+  public searchString = '';
   public skip = 0;
   private data: Object[];
-  private subscription: Subscription;
 
   constructor(public urlRouter: Router, private bookService: BookService) {
     this.loadItems();
@@ -41,15 +41,15 @@ export class BookManagementComponent implements OnInit {
 
   private loadItems(): void {
 
-    this.bookService.getAllBook()
-      .then(x => {
-      this.gridData = x;
-        this.gridView = {
-          data: this.gridData.slice(this.skip, this.skip + this.pageSize),
-          total: this.gridData.length
-        };
-      });
-
+    this.bookService.getPagingBook(this.currentPage, this.pageSize, this.searchString)
+    .then(x => {
+      this.gridView = {
+        data: x['book'],
+        total: x['total'],
+      };
+      console.log(x['book']);
+    });
+  console.log('load data');
 
   }
   private addBook() {

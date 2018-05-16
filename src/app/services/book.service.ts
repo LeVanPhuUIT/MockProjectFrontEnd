@@ -5,6 +5,7 @@ import { Books } from '../model/books';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { HttpClient } from 'selenium-webdriver/http';
 
 @Injectable()
 export class BookService {
@@ -17,25 +18,31 @@ export class BookService {
     };
 
     constructor(private http: Http) {
-        this.baseUrl = 'http://localhost:18595/api';
+        this.baseUrl = 'http://localhost:18595/api/books';
         this.dataStore = { bookList: [] };
         this._bookList = <BehaviorSubject<Books[]>>new BehaviorSubject([]);
         this.bookList = this._bookList.asObservable();
     }
 
-    getAllBook() {
-        return this.http.get('http://localhost:18595/api/books')
+    public getAllBook() {
+        return this.http.get('http://localhost:18595/api/books/')
             .toPromise()
             .then(res => res.json())
     }
-    addBook(newBook: Books) {
+
+    public getPagingBook(currentPage: number, pageSize: number, searchString: string) {
+        return this.http.get(`${this.baseUrl}?currentPage=${currentPage}&pageSize=${pageSize}&searchString=${searchString}`)
+            .toPromise()
+            .then(res => res.json())
+    }
+
+    public addBook(newBook: Books) {
         console.log('add book');
         const headers = new Headers();
         headers.append('Content-Type', 'application/json; charset=utf-8');
         console.log('add Book : ' + JSON.stringify(newBook));
 
-
-        this.http.post(`${this.baseUrl}books/`, JSON.stringify(newBook), { headers: headers })
+        this.http.post(`${this.baseUrl}/`, JSON.stringify(newBook), { headers: headers })
             .map(response => response.json()).subscribe(data => {
                 this.dataStore.bookList.push(data);
                 this._bookList.next(Object.assign({}, this.dataStore).bookList);
@@ -49,10 +56,10 @@ export class BookService {
         console.log('add Book : ' + JSON.stringify(newBook));
 
 
-        this.http.put(`${this.baseUrl}UpdateBook/`, JSON.stringify(newBook), { headers: headers })
+        this.http.put(`${this.baseUrl}/`, JSON.stringify(newBook), { headers: headers })
             .map(response => response.json()).subscribe(data => {
                 this.dataStore.bookList.forEach((t, i) => {
-                    if (t.bookId === data.id) { this.dataStore.bookList[i] = data; }
+                    if (t.BookID === data.id) { this.dataStore.bookList[i] = data; }
                 });
             }, error => console.log('Could not update Book.'));
     };
@@ -61,13 +68,32 @@ export class BookService {
         const headers = new Headers();
         headers.append('Content-Type', 'application/json; charset=utf-8');
         console.log('removeItem:' + BookId);
-        this.http.delete(`${this.baseUrl}DeleteBook/${BookId}`, { headers: headers }).subscribe(response => {
+        this.http.delete(`${this.baseUrl}/${BookId}`, { headers: headers }).subscribe(response => {
             this.dataStore.bookList.forEach((t, i) => {
-                if (t.bookId === BookId) { this.dataStore.bookList.splice(i, 1); }
+                if (t.BookID === BookId) { this.dataStore.bookList.splice(i, 1); }
             });
 
             this._bookList.next(Object.assign({}, this.dataStore).bookList);
         }, error => console.log('Could not delete Book.'));
     }
 
+    postFile(fileToUpload: File): Observable<boolean> {
+        const headersConfig = new Headers();
+        const endpoint = 'your-destination-url';
+        const formData: FormData = new FormData();
+        formData.append('fileKey', fileToUpload, fileToUpload.name);
+        
+        return this.http.post(endpoint, formData, { headers: headersConfig })
+        .map(() => { return true; });
+    }
+
+    postFile1(fileToUpload: File) {
+        const endpoint = 'http://localhost:18595/api/Books/UploadImage';
+        const formData: FormData = new FormData();
+        formData.append('Image', fileToUpload, fileToUpload.name);
+        return this.http
+          .post(endpoint, formData);
+      }
+
+    
 }

@@ -70,9 +70,10 @@ export class ListBookComponent implements OnInit {
           data: x['category'],
           total: x['total'],
         };
-        console.log(x['category']);
+        this.categoryList = x['category'],
+        console.log(this.categoryList);
       });
-    console.log('load data');
+      console.log('load data');
   }
 
   private addCategory() {
