@@ -62,11 +62,12 @@ export class AddBookComponent implements OnInit {
 
   handleFileInput(file: FileList) {
     this.fileToUpload = file.item(0);
+    console.log(file.item(0));
     this.imageUrl = this.serverApi + file.item(0).name;
     console.log(this.imageUrl);
     console.log(event.target);
     // Show image preview
-    const reader = new FileReader();
+    var reader = new FileReader();
     reader.onload = (event: any) => {
       this.imageUrlDefault = event.target.result;
     }

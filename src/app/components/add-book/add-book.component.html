@@ -25,14 +25,14 @@
                 <textarea matInput placeholder="Tựa sách" ngModel name="Title"></textarea>
               </mat-form-field>
               <mat-form-field class="example-full-width">
-                <textarea matInput placeholder="Mô tả" ngModel name="Description"></textarea>
+                <textarea matInput placeholder="Mô tả" ngModel name="Summary"></textarea>
               </mat-form-field>
               <span>Thể loại</span>
               <select class="selectpicker form-control" id="sel1" ngModel name="CateID">
                 <option *ngFor="let item of listCategoryName" [value]="item.CateID">{{item.CateName}}</option>
               </select>
               <span>Tác Giả</span>
-              <select  class="form-control" id="sel1" ngModel name="AuthorID">
+              <select class="form-control" id="sel1" ngModel name="AuthorID">
                 <option *ngFor="let item of listAuthorName" [value]="item.AuthorID">{{item.AuthorName}}</option>
               </select>
               <span>Nhà xuất bản</span>
@@ -59,11 +59,8 @@
               </button>
             </div>
             <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
-              <form #imageForm=ngForm (ngSubmit)="OnSubmit(Image)">
-                <img [src]="imageUrl" style="width:500px;height:500px">
-                <input type="file" #Image accept="image/*" (change)="handleFileInput($event.target.files);">
-                <button type="submit" class="btn-large btn-submit" [disabled]="Image.value=='' || !imageForm.valid">Submit</button>
-              </form>
+              <img [src]="imageUrlDefault" style="width:500px;height:500px">
+              <input type="file" #Image accept="image/*" (change)="handleFileInput($event.target.files);">
 
             </div>
           </div>
