@@ -25,10 +25,10 @@ export class BookManagementComponent implements OnInit {
   private data: Object[];
 
   constructor(public urlRouter: Router, private bookService: BookService) {
-    this.loadItems();
+    
   }
   ngOnInit() {
-
+    this.loadItems();
   }
   onButtonClick() {
     console.log('click');
@@ -47,7 +47,7 @@ export class BookManagementComponent implements OnInit {
         data: x['book'],
         total: x['total'],
       };
-      console.log(x['book']);
+      console.log(x);
     });
   console.log('load data');
 
@@ -56,5 +56,15 @@ export class BookManagementComponent implements OnInit {
     this.urlRouter.navigateByUrl('/add-book');
   }
 
+  private async removeBook(bookId: number) {
+    this.bookService.removeItem(bookId);
+    this.loadItems();
+  }
+
+  private sendToEditBook(dataItem){
+    this.bookService.bookEdit = dataItem as Books;
+    console.log(this.bookService.bookEdit);
+    this.urlRouter.navigateByUrl('/edit-book');
+  }
 
 }

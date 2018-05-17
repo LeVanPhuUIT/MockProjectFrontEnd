@@ -16,26 +16,19 @@
     </div>
     <div class="row">
       <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" style="padding-left: 0px;">
-        <div class="dropdown">
-          <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">10 Rows
-            <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu">
-            <li>
-              <a href="#">10 Rows</a>
-            </li>
-            <li>
-              <a href="#">15 Rows</a>
-            </li>
-            <li>
-              <a href="#">20 Rows</a>
-            </li>
-          </ul>
-        </div>
+        <select class="btn btn-primary dropdown-toggle" [(ngModel)]="pageSize" (change)="loadItems()">
+          <option value="2">2 Rows</option>
+          <option value="3">3 Rows</option>
+          <option value="5">5 Rows</option>
+          <option value="10">10 Rows</option>
+          <option value="15">15 Rows</option>
+          <option value="20">20 Rows</option>
+          <option value="25">25 Rows</option>
+        </select>
       </div>
       <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
         <div class="input-group no-border">
-          <input type="text" value="" class="form-control" placeholder="Search..." [(ngModel)]="searchString" (keyup.enter)="search()" >
+          <input type="text" value="" class="form-control" placeholder="Search..." [(ngModel)]="searchString" (keyup.enter)="loadItems()">
           <button mat-raised-button type="submit" class="btn btn-white btn-round btn-just-icon">
             <i class="material-icons">search</i>
             <div class="ripple-container"></div>
@@ -45,21 +38,56 @@
     </div>
     <div class="row">
       <kendo-grid [data]="gridView" [pageSize]="pageSize" [skip]="skip" [pageable]="true" [height]="700" (pageChange)="pageChange($event)">
+        <kendo-grid-column field="BookID" title="ID" width="0">
+          <ng-template kendoGridEditTemplate let-dataItem="dataItem">
+            <input [(ngModel)]="dataItem.BookID" kendoGridFocusable name="BookID" class="k-textbox" required/>
+          </ng-template>
+        </kendo-grid-column>
+        <kendo-grid-column field="AuthorID" title="AuthorID" width="0">
+            <ng-template kendoGridEditTemplate let-dataItem="dataItem">
+              <input [(ngModel)]="dataItem.AuthorID" kendoGridFocusable name="AuthorID" class="k-textbox" required/>
+            </ng-template>
+          </kendo-grid-column>
+          <kendo-grid-column field="CateID" title="CateID" width="0">
+              <ng-template kendoGridEditTemplate let-dataItem="dataItem">
+                <input [(ngModel)]="dataItem.CateID" kendoGridFocusable name="CateID" class="k-textbox" required/>
+              </ng-template>
+            </kendo-grid-column>
+            <kendo-grid-column field="PubID" title="PubID" width="0">
+                <ng-template kendoGridEditTemplate let-dataItem="dataItem">
+                  <input [(ngModel)]="dataItem.PubID" kendoGridFocusable name="PubID" class="k-textbox" required/>
+                </ng-template>
+              </kendo-grid-column>
         <kendo-grid-column field="Title" title="Tựa sách" width="250">
+          <ng-template kendoGridEditTemplate let-dataItem="dataItem">
+            <input [(ngModel)]="dataItem.Title" kendoGridFocusable name="Title" class="k-textbox" required/>
+          </ng-template>
         </kendo-grid-column>
         <kendo-grid-column field="Price" title="Giá" width="100">
+          <ng-template kendoGridEditTemplate let-dataItem="dataItem">
+            <input [(ngModel)]="dataItem.Price" kendoGridFocusable name="Price" class="k-textbox" required/>
+          </ng-template>
         </kendo-grid-column>
         <kendo-grid-column field="Quantity" title="Số lượng" width="100">
+          <ng-template kendoGridEditTemplate let-dataItem="dataItem">
+            <input [(ngModel)]="dataItem.Quantity" kendoGridFocusable name="Quantity" class="k-textbox" required/>
+          </ng-template>
         </kendo-grid-column>
         <kendo-grid-column field="ImgUrl" title="Hình ảnh">
+          <ng-template kendoGridEditTemplate let-dataItem="dataItem">
+            <input [(ngModel)]="dataItem.ImgUrl" kendoGridFocusable name="ImgUrl" class="k-textbox" required/>
+          </ng-template>
         </kendo-grid-column>
-        <kendo-grid-column field="IsActive" title="Trạng thái" width="250">
+        <kendo-grid-column field="Status" title="Trạng thái" width="250">
+          <ng-template kendoGridEditTemplate let-dataItem="dataItem">
+            <input [(ngModel)]="dataItem.Status" kendoGridFocusable name="Status" class="k-textbox" required/>
+          </ng-template>
         </kendo-grid-column>
         <kendo-grid-column field="Discontinued" title="Chức năng" width="200">
           <ng-template kendoGridCellTemplate let-dataItem>
-            <button mat-mini-fab color="primary" (click)="onButtonClick()">Sửa</button>
+            <button mat-mini-fab color="primary" (click)="sendToEditBook(dataItem)">Sửa</button>
             <button mat-mini-fab color="success" (click)="onButtonClick()">Detail</button>
-            <button mat-mini-fab color="warn" (click)="onButtonClick()">Xóa</button>
+            <button mat-mini-fab color="warn" (click)="removeBook(dataItem.BookID)">Xóa</button>
           </ng-template>
         </kendo-grid-column>
       </kendo-grid>

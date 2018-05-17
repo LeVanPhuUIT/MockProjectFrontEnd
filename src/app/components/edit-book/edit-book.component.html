@@ -1,0 +1,98 @@
+<div class="main-content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+              <h1>Thêm sách</h1>
+            </div>
+          </div>
+          <div class="row" style="background-color: white">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+              <div class="row">
+                <div>
+                  <p>Vui lòng điền đầy đủ thông tin</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <form #formBook="ngForm" name="addBook">
+            <div class="row" style="background-color: white">
+              <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+                <!-- <mat-form-field class="example-full-width">
+                  <textarea matInput placeholder="Tựa sách" [(ngModel)]="bookEdit.Title" name="Title" [ngModelOptions]="{standalone: true}"></textarea>
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                  <textarea matInput placeholder="Mô tả" [(ngModel)]="bookEdit.Summary" name="Summary" [ngModelOptions]="{standalone: true}" ></textarea>
+                </mat-form-field>
+                <span>Thể loại</span>
+                <select class="selectpicker form-control" id="sel1" [(ngModel)]="bookEdit.CateID" name="CateID" [ngModelOptions]="{standalone: true}" >
+                  <option *ngFor="let item of listCategoryName" [value]="item.CateID">{{item.CateName}}</option>
+                </select>
+                <span>Tác Giả</span>
+                <select class="form-control" id="sel1" [(ngModel)]="bookEdit.AuthorID" name="AuthorID" [ngModelOptions]="{standalone: true}" >
+                  <option *ngFor="let item of listAuthorName" [value]="item.AuthorID">{{item.AuthorName}}</option>
+                </select>
+                <span>Nhà xuất bản</span>
+                <select class="form-control" id="sel1" [(ngModel)]="bookEdit.PubID" name="PubID" [ngModelOptions]="{standalone: true}" >
+                  <option *ngFor="let item of listPublisher" [value]="item.PubID">{{item.Name}}</option>
+                </select>
+                <mat-form-field class="example-full-width">
+                  <textarea matInput placeholder="Giá" [(ngModel)]="bookEdit.Price" name="Price" [ngModelOptions]="{standalone: true}" ></textarea>
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                  <textarea matInput placeholder="Số lượng" [(ngModel)]="bookEdit.Quantity" name="Quantity" [ngModelOptions]="{standalone: true}" ></textarea>
+                </mat-form-field>
+                <span>Chọn trạng thái</span>
+                <select class="form-control" id="sel1" [(ngModel)]="bookEdit.Status" name="Status" [ngModelOptions]="{standalone: true}" >
+                  <option value="Đang bán">Đang bán</option>
+                  <option value="Dừng bán">Dừng bán</option>
+                  <option value="Chưa bán">Chưa bán</option>
+                </select> -->
+                <mat-form-field class="example-full-width">
+                    <textarea matInput placeholder="Tựa sách" [(ngModel)]="Title" name="Title" ></textarea>
+                  </mat-form-field>
+                  <mat-form-field class="example-full-width">
+                    <textarea matInput placeholder="Mô tả" [(ngModel)]="Summary" name="Summary"></textarea>
+                  </mat-form-field>
+                  <span>Thể loại</span>
+                  <select class="selectpicker form-control" id="sel1" [(ngModel)]="CateID" name="CateID" >
+                    <option *ngFor="let item of listCategoryName" [value]="item.CateID">{{item.CateName}}</option>
+                  </select>
+                  <span>Tác Giả</span>
+                  <select class="form-control" id="sel1" [(ngModel)]="bookEdit.AuthorID" name="AuthorID">
+                    <option *ngFor="let item of listAuthorName" [value]="item.AuthorID">{{item.AuthorName}}</option>
+                  </select>
+                  <span>Nhà xuất bản</span>
+                  <select class="form-control" id="sel1" [(ngModel)]="PubID" name="PubID" >
+                    <option *ngFor="let item of listPublisher" [value]="item.PubID">{{item.Name}}</option>
+                  </select>
+                  <mat-form-field class="example-full-width">
+                    <textarea matInput placeholder="Giá" [(ngModel)]="Price" name="Price" ></textarea>
+                  </mat-form-field>
+                  <mat-form-field class="example-full-width">
+                    <textarea matInput placeholder="Số lượng" [(ngModel)]="Quantity" name="Quantity"></textarea>
+                  </mat-form-field>
+                  <span>Chọn trạng thái</span>
+                  <select class="form-control" id="sel1" [(ngModel)]="Status" name="Status">
+                    <option value="Đang bán">Đang bán</option>
+                    <option value="Dừng bán">Dừng bán</option>
+                    <option value="Chưa bán">Chưa bán</option>
+                  </select>
+                <button type="button" class="btn btn-danger">
+                  <span class="glyphicon glyphicon-arrow-left"></span>Quay lại
+                </button>
+                <button type="button" class="btn btn-success" (click)="senderData(formBook); OnSubmit(Image); addBook();">
+                  <span class="glyphicon glyphicon-arrow-right"></span>Cập nhật
+                </button>
+              </div>
+              <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
+                <img [src]="imageUrlDefault" style="width:500px;height:500px">
+                <input type="file" #Image accept="image/*" (change)="handleFileInput($event.target.files);">
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>

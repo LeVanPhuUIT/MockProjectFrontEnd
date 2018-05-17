@@ -21,4 +21,11 @@ export class Books {
     ModifiedDay: string;
     IsActive: boolean;
     Status: string;
+    /**
+     *
+     */
+    constructor() {
+       this.Title="";
+        
+    }
 }

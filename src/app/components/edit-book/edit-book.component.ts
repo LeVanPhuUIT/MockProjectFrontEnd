@@ -10,14 +10,15 @@ import { PublisherService } from '../../services/publisher.service';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 import { Category } from '../../model/category';
+import { FormGroup, FormControl, Validators, NgForm } from '@angular/forms';
 
 @Component({
-  selector: 'app-add-book',
-  templateUrl: './add-book.component.html',
-  styleUrls: ['./add-book.component.scss'],
+  selector: 'app-edit-book',
+  templateUrl: './edit-book.component.html',
+  styleUrls: ['./edit-book.component.scss'],
   providers: [BookService, CategoryService, AuthorService, PublisherService],
 })
-export class AddBookComponent implements OnInit {
+export class EditBookComponent implements OnInit {
 
   private newBook: Books;
   public listCategoryName: Array<string>;
@@ -27,16 +28,56 @@ export class AddBookComponent implements OnInit {
   public imageUrlDefault = 'http://localhost:18595/image/default-image.jpg';
   public fileToUpload: File = null;
   private imageUrl: string;
+  private bookEdit: Books;
+  private form: NgForm;
+  public Title: string="";
+  public Summary: string;
+  public CateID: number;
+  public AuthorID: number;
+  public PubID: number;
+  public Price: number;
+  public Quantity: number;
+  public Status: string;
+
+  public editForm: FormGroup = new FormGroup({
+    'Title': new FormControl('', Validators.required),
+    'Summary': new FormControl(),
+    'Image': new FormControl(),
+    'CategoryID': new FormControl('', Validators.required),
+    'AuthorID': new FormControl('', Validators.required),
+    'PublisherID': new FormControl(),
+    'Price': new FormControl(),
+    'Quantity': new FormControl(),
+    'Status': new FormControl(),
+    
+}); 
 
   constructor(public urlRouter: Router, private bookService: BookService,
     private categoryService: CategoryService, private authorService: AuthorService,
     private publisherService: PublisherService) {
     this.newBook = new Books();
+    this.bookEdit = new Books();
     // console.log(this.gridData);
   }
 
   ngOnInit() {
     this.onLoad();
+    this.loadData();
+    //this.editForm = this.bookService.bookEdit;
+  }
+
+  private loadData(){
+    // this.bookEdit = this.bookService.bookEdit;
+    // this.Title = this.bookEdit.Title;
+    // this.Summary = this.bookEdit.Summary;
+    // this.CateID = this.bookEdit.CateID;
+    // this.AuthorID = this.bookEdit.AuthorID;
+    // this.PubID = this.bookEdit.PubID;
+    // this.Price = this.bookEdit.Price;
+    // this.Quantity = this.bookEdit.Quantity;
+    // this.Status = this.bookEdit.Status;
+    console.log("di me")
+    console.log(this.bookService.bookEdit);
   }
 
   private onLoad() {
@@ -94,4 +135,5 @@ export class AddBookComponent implements OnInit {
   public addBook() {
     this.bookService.addBook(this.newBook);
   }
+
 }

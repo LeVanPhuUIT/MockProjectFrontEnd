@@ -13,6 +13,7 @@ export class BookService {
     public bookList: Observable<Books[]>;
     private _bookList: BehaviorSubject<Books[]>;
     private baseUrl: string;
+    public bookEdit: Books;
     private dataStore: {
         bookList: Books[];
     };
@@ -69,12 +70,13 @@ export class BookService {
         const headers = new Headers();
         headers.append('Content-Type', 'application/json; charset=utf-8');
         console.log('removeItem:' + BookId);
-        this.http.delete(`${this.baseUrl}${BookId}`, { headers: headers }).subscribe(response => {
+        this.http.delete(`${this.baseUrl}/${BookId}`, { headers: headers }).subscribe(response => {
             this.dataStore.bookList.forEach((t, i) => {
                 if (t.BookID === BookId) { this.dataStore.bookList.splice(i, 1); }
             });
 
             this._bookList.next(Object.assign({}, this.dataStore).bookList);
+            alert("Xóa thành công");
         }, error => console.log('Could not delete Book.'));
     }
 

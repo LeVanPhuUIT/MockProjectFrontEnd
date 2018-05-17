@@ -28,6 +28,8 @@ import {
 import { AuthorManagementComponent } from '../../components/author-management/author-management.component';
 import { PublisherManagementComponent } from '../../components/publisher-management/publisher-management.component';
 import { BookManagementComponent } from '../../components/book-management/book-management.component';
+import { EditBookComponent } from '../../components/edit-book/edit-book.component';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -55,6 +57,7 @@ import { BookManagementComponent } from '../../components/book-management/book-m
     PublisherManagementComponent,
     BookManagementComponent,
     AddBookComponent,
+    EditBookComponent,
     NotFoundComponent,
   ]
 })
