@@ -23,6 +23,7 @@ import {
 } from '@agm/core';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { LoginComponent } from './components/login/login.component';
+import { ShareService } from './services/share.service';
 
 
 @NgModule({
@@ -33,7 +34,6 @@ import { LoginComponent } from './components/login/login.component';
     ComponentsModule,
     RouterModule,
     AppRoutingModule,
-    
   ],
   declarations: [
     AppComponent,
@@ -41,7 +41,7 @@ import { LoginComponent } from './components/login/login.component';
     LoginComponent,
 
   ],
-  providers: [],
+  providers: [ShareService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

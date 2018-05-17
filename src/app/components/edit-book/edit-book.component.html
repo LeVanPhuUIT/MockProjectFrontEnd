@@ -19,7 +19,7 @@
           <form #formBook="ngForm" name="addBook">
             <div class="row" style="background-color: white">
               <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
-                <!-- <mat-form-field class="example-full-width">
+                <mat-form-field class="example-full-width">
                   <textarea matInput placeholder="Tựa sách" [(ngModel)]="bookEdit.Title" name="Title" [ngModelOptions]="{standalone: true}"></textarea>
                 </mat-form-field>
                 <mat-form-field class="example-full-width">
@@ -48,8 +48,8 @@
                   <option value="Đang bán">Đang bán</option>
                   <option value="Dừng bán">Dừng bán</option>
                   <option value="Chưa bán">Chưa bán</option>
-                </select> -->
-                <mat-form-field class="example-full-width">
+                </select>
+                <!-- <mat-form-field class="example-full-width">
                     <textarea matInput placeholder="Tựa sách" [(ngModel)]="Title" name="Title" ></textarea>
                   </mat-form-field>
                   <mat-form-field class="example-full-width">
@@ -78,11 +78,11 @@
                     <option value="Đang bán">Đang bán</option>
                     <option value="Dừng bán">Dừng bán</option>
                     <option value="Chưa bán">Chưa bán</option>
-                  </select>
-                <button type="button" class="btn btn-danger">
+                  </select> -->
+                <!-- <button type="button" class="btn btn-danger">
                   <span class="glyphicon glyphicon-arrow-left"></span>Quay lại
-                </button>
-                <button type="button" class="btn btn-success" (click)="senderData(formBook); OnSubmit(Image); addBook();">
+                </button> -->
+                <button type="button" class="btn btn-success" (click)="OnSubmit(Image); editBook();">
                   <span class="glyphicon glyphicon-arrow-right"></span>Cập nhật
                 </button>
               </div>

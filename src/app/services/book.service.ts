@@ -58,7 +58,7 @@ export class BookService {
         console.log('add Book : ' + JSON.stringify(newBook));
 
 
-        this.http.put(`${this.baseUrl}`, JSON.stringify(newBook), { headers: headers })
+        this.http.put(`${this.baseUrl}/${newBook.BookID}`, JSON.stringify(newBook), { headers: headers })
             .map(response => response.json()).subscribe(data => {
                 this.dataStore.bookList.forEach((t, i) => {
                     if (t.BookID === data.id) { this.dataStore.bookList[i] = data; }
@@ -66,7 +66,7 @@ export class BookService {
             }, error => console.log('Could not update Book.'));
     };
 
-    removeItem(BookId: number) {
+    public removeItem(BookId: number) {
         const headers = new Headers();
         headers.append('Content-Type', 'application/json; charset=utf-8');
         console.log('removeItem:' + BookId);
@@ -76,27 +76,29 @@ export class BookService {
             });
 
             this._bookList.next(Object.assign({}, this.dataStore).bookList);
-            alert("Xóa thành công");
+            alert('Xóa thành công');
         }, error => console.log('Could not delete Book.'));
     }
 
-    postFile(fileToUpload: File): Observable<boolean> {
-        const headersConfig = new Headers();
-        const endpoint = 'your-destination-url';
-        const formData: FormData = new FormData();
-        formData.append('fileKey', fileToUpload, fileToUpload.name);
-        
-        return this.http.post(endpoint, formData, { headers: headersConfig })
-        .map(() => { return true; });
-    }
+    // public postFile(fileToUpload: File): Observable<boolean> {
+    //     const headersConfig = new Headers();
+    //     const endpoint = 'your-destination-url';
+    //     const formData: FormData = new FormData();
+    //     formData.append('fileKey', fileToUpload, fileToUpload.name);
+    //     return this.http.post(endpoint, formData, { headers: headersConfig })
+    //     .map(() => { return true; });
+    // }
 
-    postFile1(fileToUpload: File) {
+    public postFile1(fileToUpload: File) {
         const endpoint = 'http://localhost:18595/api/Books/UploadImage';
         const formData: FormData = new FormData();
         formData.append('Image', fileToUpload, fileToUpload.name);
         return this.http
           .post(endpoint, formData);
-      }
+    }
 
-    
+    public showBookEdit() {
+        console.log(this.bookEdit);
+    }
+
 }

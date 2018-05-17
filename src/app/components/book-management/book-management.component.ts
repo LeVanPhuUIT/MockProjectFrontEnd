@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Books } from '../../model/books';
 import { BookService } from '../../services/book.service';
 import { Subscription } from 'rxjs/Subscription';
+import { ShareService } from '../../services/share.service';
 
 @Component({
   selector: 'app-book-management',
@@ -24,8 +25,7 @@ export class BookManagementComponent implements OnInit {
   public skip = 0;
   private data: Object[];
 
-  constructor(public urlRouter: Router, private bookService: BookService) {
-    
+  constructor(public urlRouter: Router, private bookService: BookService, private shareService: ShareService) {
   }
   ngOnInit() {
     this.loadItems();
@@ -61,9 +61,11 @@ export class BookManagementComponent implements OnInit {
     this.loadItems();
   }
 
-  private sendToEditBook(dataItem){
-    this.bookService.bookEdit = dataItem as Books;
-    console.log(this.bookService.bookEdit);
+  /// book management
+  private sendToEditBook(dataItem) {
+    this.shareService.bookEdit = dataItem;
+    //this.bookService.bookEdit = dataItem as Books;
+    //console.log(this.bookService.bookEdit);
     this.urlRouter.navigateByUrl('/edit-book');
   }
 
