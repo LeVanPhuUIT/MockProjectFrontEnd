@@ -51,6 +51,7 @@
                 <option value="Dừng bán">Dừng bán</option>
                 <option value="Chưa bán">Chưa bán</option>
               </select>
+              <br>
               <button type="button" class="btn btn-danger">
                 <span class="glyphicon glyphicon-arrow-left"></span>Quay lại
               </button>
@@ -59,8 +60,12 @@
               </button>
             </div>
             <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
-              <img [src]="imageUrlDefault" style="width:500px;height:500px">
-              <input type="file" #Image accept="image/*" (change)="handleFileInput($event.target.files);">
+              <div class="row">
+                <img [src]="imageUrlDefault" style="width:500px;height:500px">
+              </div>
+              <div class="row">
+                <input type="file" #Image accept="image/*" (change)="handleFileInput($event.target.files);">
+              </div>
             </div>
           </div>
         </form>

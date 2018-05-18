@@ -58,7 +58,7 @@ export class BookManagementComponent implements OnInit {
 
   private async removeBook(bookId: number) {
     this.bookService.removeItem(bookId);
-    this.loadItems();
+    this.urlRouter.navigateByUrl('/book-management');
   }
 
   /// book management

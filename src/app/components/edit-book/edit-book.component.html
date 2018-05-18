@@ -49,39 +49,6 @@
                   <option value="Dừng bán">Dừng bán</option>
                   <option value="Chưa bán">Chưa bán</option>
                 </select>
-                <!-- <mat-form-field class="example-full-width">
-                    <textarea matInput placeholder="Tựa sách" [(ngModel)]="Title" name="Title" ></textarea>
-                  </mat-form-field>
-                  <mat-form-field class="example-full-width">
-                    <textarea matInput placeholder="Mô tả" [(ngModel)]="Summary" name="Summary"></textarea>
-                  </mat-form-field>
-                  <span>Thể loại</span>
-                  <select class="selectpicker form-control" id="sel1" [(ngModel)]="CateID" name="CateID" >
-                    <option *ngFor="let item of listCategoryName" [value]="item.CateID">{{item.CateName}}</option>
-                  </select>
-                  <span>Tác Giả</span>
-                  <select class="form-control" id="sel1" [(ngModel)]="bookEdit.AuthorID" name="AuthorID">
-                    <option *ngFor="let item of listAuthorName" [value]="item.AuthorID">{{item.AuthorName}}</option>
-                  </select>
-                  <span>Nhà xuất bản</span>
-                  <select class="form-control" id="sel1" [(ngModel)]="PubID" name="PubID" >
-                    <option *ngFor="let item of listPublisher" [value]="item.PubID">{{item.Name}}</option>
-                  </select>
-                  <mat-form-field class="example-full-width">
-                    <textarea matInput placeholder="Giá" [(ngModel)]="Price" name="Price" ></textarea>
-                  </mat-form-field>
-                  <mat-form-field class="example-full-width">
-                    <textarea matInput placeholder="Số lượng" [(ngModel)]="Quantity" name="Quantity"></textarea>
-                  </mat-form-field>
-                  <span>Chọn trạng thái</span>
-                  <select class="form-control" id="sel1" [(ngModel)]="Status" name="Status">
-                    <option value="Đang bán">Đang bán</option>
-                    <option value="Dừng bán">Dừng bán</option>
-                    <option value="Chưa bán">Chưa bán</option>
-                  </select> -->
-                <!-- <button type="button" class="btn btn-danger">
-                  <span class="glyphicon glyphicon-arrow-left"></span>Quay lại
-                </button> -->
                 <button type="button" class="btn btn-success" (click)="OnSubmit(Image); editBook();">
                   <span class="glyphicon glyphicon-arrow-right"></span>Cập nhật
                 </button>
