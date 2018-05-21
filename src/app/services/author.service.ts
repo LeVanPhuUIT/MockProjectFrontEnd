@@ -56,22 +56,6 @@ export class AuthorService {
   }
 
 
-  public addauthor1<T>(newAuthor: T) {
-    console.log('add author');
-    const headers = new Headers();
-    headers.append('Content-Type', 'application/json; charset=utf-8');
-    console.log('add author : ' + JSON.stringify(newAuthor));
-
-
-    return this.http.post(`${this.baseUrl}Authors/`, JSON.stringify(newAuthor), { headers: headers })
-    .toPromise().
-    then(res => res.json());
-      // .map(response => response.json()).subscribe(data => {
-      //   this.dataStore.authorList.push(data);
-      //   this._authorList.next(Object.assign({}, this.dataStore).authorList);
-      // }, error => console.log('Could not add author.'));
-  }
-
   public updateAuthor(oldAuthor: Author) {
     console.log('updateauthor');
     const headers = new Headers();
@@ -79,25 +63,15 @@ export class AuthorService {
     console.log('Update author : ' + JSON.stringify(oldAuthor));
 
     console.log(oldAuthor.AuthorID);
-    this.http.put(`${this.baseUrl}Authors/${oldAuthor.AuthorID}`, JSON.stringify(oldAuthor), { headers: headers })
-      .map(response => response.json()).subscribe(data => {
-        this.dataStore.authorList.forEach((t, i) => {
-          if (t.AuthorID === data.id) { this.dataStore.authorList[i] = data; }
-        });
-      }, error => console.log('Could not update author.'));
+    return this.http.put(`${this.baseUrl}Authors/${oldAuthor.AuthorID}`, JSON.stringify(oldAuthor), { headers: headers })
+      .map(response => response.json());
   };
 
   public removeItem(AuthorID: number) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json; charset=utf-8');
     console.log('removeItem:' + AuthorID);
-    this.http.delete(`${this.baseUrl}Authors/${AuthorID}`, { headers: headers }).subscribe(response => {
-      this.dataStore.authorList.forEach((t, i) => {
-        if (t.AuthorID === AuthorID) { this.dataStore.authorList.splice(i, 1); }
-      });
-
-      this._authorList.next(Object.assign({}, this.dataStore).authorList);
-    }, error => console.log('Could not delete author.'));
+    return this.http.delete(`${this.baseUrl}Authors/${AuthorID}`, { headers: headers });
   }
 
 

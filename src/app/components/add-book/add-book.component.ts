@@ -92,6 +92,18 @@ export class AddBookComponent implements OnInit {
   }
 
   public addBook() {
-    this.bookService.addBook(this.newBook);
+    this.bookService.addBook(this.newBook).subscribe(result => {
+      // Handle result
+      console.log(result);
+      alert('update thành công');
+    },
+      error => {
+        alert('update thất bại');
+      },
+      () => {
+        // 'onCompleted' callback.
+        // No errors, route to new page here
+        this.urlRouter.navigateByUrl('/book-management');
+      });;
   }
 }

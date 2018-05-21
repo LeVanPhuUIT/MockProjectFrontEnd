@@ -4,6 +4,7 @@ import { GridDataResult, PageChangeEvent } from '@progress/kendo-angular-grid';
 import { Router } from '@angular/router';
 import { Author } from '../../model/author';
 import { AuthorService } from '../../services/author.service';
+import { error } from 'protractor';
 
 @Component({
   selector: 'app-author-management',
@@ -73,7 +74,11 @@ export class AuthorManagementComponent implements OnInit {
         // this.toast('snackbarAdd');
         this.newAuthor.AuthorName = '';
         this.newAuthor.History = '';
-      });
+        alert('add thành công');
+      },
+    error => {
+      alert('add thất bại');
+    });
   }
 
   private senderData(dataItem: Author) {
@@ -86,12 +91,35 @@ export class AuthorManagementComponent implements OnInit {
   private updateAuthor(formEdit) {
     console.log(formEdit.value.AuthorID);
     this.oldAuthor = formEdit.value;
-    this.authorService.updateAuthor(this.oldAuthor);
+    this.authorService.updateAuthor(this.oldAuthor).subscribe(result => {
+      // Handle result
+      console.log(result);
+      alert('update thành công');
+    },
+      error => {
+        alert('update thất bại');
+      },
+      () => {
+        // 'onCompleted' callback.
+        // No errors, route to new page here
+        this.loadItems();
+      });;
   }
 
-  private async removeAuthor(AuthorID: number) {
-    await this.authorService.removeItem(AuthorID);
-    this.loadItems();
+  private removeAuthor(AuthorID: number) {
+    this.authorService.removeItem(AuthorID).subscribe(result => {
+      // Handle result
+      console.log(result);
+      alert('remove thành công');
+    },
+      error => {
+        alert('remove thất bại');
+      },
+      () => {
+        // 'onCompleted' callback.
+        // No errors, route to new page here
+        this.loadItems();
+      });;
   }
 
 }

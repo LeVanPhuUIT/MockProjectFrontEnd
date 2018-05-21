@@ -4,6 +4,7 @@ import { GridDataResult, PageChangeEvent } from '@progress/kendo-angular-grid';
 import { Router } from '@angular/router';
 import { PublisherService } from '../../services/publisher.service'
 import { Publisher } from '../../model/publisher';
+import { error } from 'protractor';
 
 @Component({
   selector: 'app-publisher-management',
@@ -73,7 +74,10 @@ export class PublisherManagementComponent implements OnInit {
         this.newPublisher.Name = '';
         this.newPublisher.Description = '';
         console.log(this.newPublisher);
-      });
+      },
+    error => {
+      alert('add thất bại');
+    });
   }
 
   private senderData(dataItem: Publisher) {
@@ -87,11 +91,34 @@ export class PublisherManagementComponent implements OnInit {
     console.log(formEdit.value.PublisherID);
     this.oldPublisher = formEdit.value;
     console.log('old: ' + this.oldPublisher.PubID);
-    this.publisherService.updatePublisher(this.oldPublisher);
+    this.publisherService.updatePublisher(this.oldPublisher).subscribe(result => {
+      // Handle result
+      console.log(result);
+      alert('update thành công');
+    },
+      error => {
+        alert('update thất bại');
+      },
+      () => {
+        // 'onCompleted' callback.
+        // No errors, route to new page here
+        this.loadItems();
+      });;
   }
 
   private async removePublisher(PublisherID: number) {
-    await this.publisherService.removeItem(PublisherID);
-    this.loadItems();
+    await this.publisherService.removeItem(PublisherID).subscribe(result => {
+      // Handle result
+      console.log(result);
+      alert('update thành công');
+    },
+      error => {
+        alert('update thất bại');
+      },
+      () => {
+        // 'onCompleted' callback.
+        // No errors, route to new page here
+        this.loadItems();
+      });;
   }
 }

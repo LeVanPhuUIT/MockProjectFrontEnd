@@ -25,10 +25,6 @@
 
           <!-- Modal body -->
           <div class="modal-body">
-            <form action="/action_page.php">
-              <textarea name="comment" required></textarea>
-              <input type="submit">
-            </form>
             <mat-form-field class="example-full-width">
               <textarea matInput placeholder="Tên danh mục" name="CateName" [(ngModel)]="newCategory.CateName"></textarea>
             </mat-form-field>
@@ -36,28 +32,6 @@
             <mat-form-field class="example-full-width">
               <textarea matInput placeholder="Mô tả" name="Description" [(ngModel)]="newCategory.Description"></textarea>
             </mat-form-field>
-            <form id="myform">
-              <input type="text" name="field1" />
-              <input type="text" name="field2" />
-              <input type="submit" />
-            </form>
-            <script>
-              $(document).ready(function () {
-                $('#myform').validate({ // initialize the plugin
-                  rules: {
-                    field1: {
-                      required: true,
-                      email: true
-                    },
-                    field2: {
-                      required: true,
-                      minlength: 5
-                    }
-                  }
-                });
-
-              });
-            </script>
           </div>
 
           <!-- Modal footer -->

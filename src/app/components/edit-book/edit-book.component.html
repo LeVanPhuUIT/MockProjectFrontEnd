@@ -25,25 +25,29 @@
                 <mat-form-field class="example-full-width">
                   <textarea matInput placeholder="Mô tả" [(ngModel)]="bookEdit.Summary" name="Summary" [ngModelOptions]="{standalone: true}" ></textarea>
                 </mat-form-field>
-                <span>Thể loại</span>
+                <span style="color: #417ff4 ; font-weight: bold">Thể loại</span>
                 <select class="selectpicker form-control" id="sel1" [(ngModel)]="bookEdit.CateID" name="CateID" [ngModelOptions]="{standalone: true}" >
                   <option *ngFor="let item of listCategoryName" [value]="item.CateID">{{item.CateName}}</option>
                 </select>
-                <span>Tác Giả</span>
+                <span style="color: #417ff4 ; font-weight: bold">Tác Giả</span>
                 <select class="form-control" id="sel1" [(ngModel)]="bookEdit.AuthorID" name="AuthorID" [ngModelOptions]="{standalone: true}" >
                   <option *ngFor="let item of listAuthorName" [value]="item.AuthorID">{{item.AuthorName}}</option>
                 </select>
-                <span>Nhà xuất bản</span>
+                <span style="color: #417ff4 ; font-weight: bold">Nhà xuất bản</span>
                 <select class="form-control" id="sel1" [(ngModel)]="bookEdit.PubID" name="PubID" [ngModelOptions]="{standalone: true}" >
                   <option *ngFor="let item of listPublisher" [value]="item.PubID">{{item.Name}}</option>
                 </select>
-                <mat-form-field class="example-full-width">
-                  <textarea matInput placeholder="Giá" [(ngModel)]="bookEdit.Price" name="Price" [ngModelOptions]="{standalone: true}" ></textarea>
-                </mat-form-field>
-                <mat-form-field class="example-full-width">
-                  <textarea matInput placeholder="Số lượng" [(ngModel)]="bookEdit.Quantity" name="Quantity" [ngModelOptions]="{standalone: true}" ></textarea>
-                </mat-form-field>
-                <span>Chọn trạng thái</span>
+              
+                <mat-form-field>
+                    <input matInput placeholder="Giá" type="number" [(ngModel)]="bookEdit.Price" name="Price" [ngModelOptions]="{standalone: true}" class="example-right-align">
+                    <span matPrefix>$&nbsp;</span>
+                    <span matSuffix>VND</span>
+                  </mat-form-field>
+                  <mat-form-field>
+                    <input matInput placeholder="Số lượng" type="number" [(ngModel)]="bookEdit.Quantity" name="Quantity" [ngModelOptions]="{standalone: true}" class="example-right-align">
+                    <span matSuffix>Quyển</span>
+                  </mat-form-field>
+                <span style="color: #417ff4 ; font-weight: bold">Chọn trạng thái</span>
                 <select class="form-control" id="sel1" [(ngModel)]="bookEdit.Status" name="Status" [ngModelOptions]="{standalone: true}" >
                   <option value="Đang bán">Đang bán</option>
                   <option value="Dừng bán">Dừng bán</option>
@@ -55,6 +59,7 @@
               </div>
               <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
                 <img [src]="imageUrlDefault" style="width:500px;height:500px">
+                <br>
                 <input type="file" #Image accept="image/*" (change)="handleFileInput($event.target.files);">
               </div>
             </div>

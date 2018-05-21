@@ -27,6 +27,7 @@ export class BookManagementComponent implements OnInit {
 
   constructor(public urlRouter: Router, private bookService: BookService, private shareService: ShareService) {
   }
+
   ngOnInit() {
     this.loadItems();
   }
@@ -57,8 +58,20 @@ export class BookManagementComponent implements OnInit {
   }
 
   private async removeBook(bookId: number) {
-    this.bookService.removeItem(bookId);
-    this.urlRouter.navigateByUrl('/book-management');
+    this.bookService.removeItem(bookId).subscribe(result => {
+      // Handle result
+      console.log(result);
+      alert('xóa thành công');
+    },
+      error => {
+        alert('xóa thất bại');
+        console.log(error);
+      },
+      () => {
+        // 'onCompleted' callback.
+        // No errors, route to new page here
+        this.loadItems();
+      });;
   }
 
   /// book management

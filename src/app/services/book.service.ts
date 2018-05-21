@@ -43,12 +43,8 @@ export class BookService {
         headers.append('Content-Type', 'application/json; charset=utf-8');
         console.log('add Book : ' + JSON.stringify(newBook));
 
-        this.http.post(`${this.baseUrl}`, JSON.stringify(newBook), { headers: headers })
-            .map(response => response.json()).subscribe(data => {
-                this.dataStore.bookList.push(data);
-                this._bookList.next(Object.assign({}, this.dataStore).bookList);
-                alert('add book thành công');
-            }, error => console.log('Could not add book.'));
+        return this.http.post(`${this.baseUrl}`, JSON.stringify(newBook), { headers: headers })
+            .map(response => response.json());
     }
 
     public updateBook(newBook: Books) {
@@ -58,26 +54,14 @@ export class BookService {
         console.log('add Book : ' + JSON.stringify(newBook));
 
 
-        this.http.put(`${this.baseUrl}/${newBook.BookID}`, JSON.stringify(newBook), { headers: headers })
-            .map(response => response.json()).subscribe(data => {
-                this.dataStore.bookList.forEach((t, i) => {
-                    if (t.BookID === data.id) { this.dataStore.bookList[i] = data; }
-                });
-            }, error => console.log('Could not update Book.'));
+        return this.http.put(`${this.baseUrl}/${newBook.BookID}`, JSON.stringify(newBook), { headers: headers });
     };
 
     public removeItem(BookId: number) {
         const headers = new Headers();
         headers.append('Content-Type', 'application/json; charset=utf-8');
         console.log('removeItem:' + BookId);
-        this.http.delete(`${this.baseUrl}/${BookId}`, { headers: headers }).subscribe(response => {
-            this.dataStore.bookList.forEach((t, i) => {
-                if (t.BookID === BookId) { this.dataStore.bookList.splice(i, 1); }
-            });
-
-            this._bookList.next(Object.assign({}, this.dataStore).bookList);
-            alert('Xóa thành công');
-        }, error => console.log('Could not delete Book.'));
+        return this.http.delete(`${this.baseUrl}/${BookId}`, { headers: headers });
     }
 
     // public postFile(fileToUpload: File): Observable<boolean> {

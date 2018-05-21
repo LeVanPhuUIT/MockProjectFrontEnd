@@ -91,9 +91,20 @@ export class ListBookComponent implements OnInit {
     x.className = 'show';
     setTimeout(function () { x.className = x.className.replace('show', ''); }, 3000);
   }
-  private async removeCategory(categoryId: number) {
-    this.categoryService.removeItem(categoryId);
-    this.loadItems();
+  private removeCategory(categoryId: number) {
+    this.categoryService.removeItem(categoryId).subscribe(result => {
+      // Handle result
+      console.log(result);
+      alert('remove thành công');
+    },
+      error => {
+        alert('remove thất bại');
+      },
+      () => {
+        // 'onCompleted' callback.
+        // No errors, route to new page here
+        this.loadItems();
+      });;
   }
 
   private updateCategory() {
@@ -103,7 +114,19 @@ export class ListBookComponent implements OnInit {
     console.log('cate new');
     console.log(this.cateName);
     console.log(this.cateDescription)
-    this.categoryService.updatecategory(this.oldCategory);
+    this.categoryService.updatecategory(this.oldCategory).subscribe(result => {
+      // Handle result
+      console.log(result);
+      alert('update thành công');
+    },
+      error => {
+        alert('update thất bại');
+      },
+      () => {
+        // 'onCompleted' callback.
+        // No errors, route to new page here
+        this.loadItems();
+      });;
   }
 
   private senderData(dataItem: Category) {

@@ -44,20 +44,20 @@
           </ng-template>
         </kendo-grid-column>
         <kendo-grid-column field="AuthorID" title="AuthorID" width="0">
-            <ng-template kendoGridEditTemplate let-dataItem="dataItem">
-              <input [(ngModel)]="dataItem.AuthorID" kendoGridFocusable name="AuthorID" class="k-textbox" required/>
-            </ng-template>
-          </kendo-grid-column>
-          <kendo-grid-column field="CateID" title="CateID" width="0">
-              <ng-template kendoGridEditTemplate let-dataItem="dataItem">
-                <input [(ngModel)]="dataItem.CateID" kendoGridFocusable name="CateID" class="k-textbox" required/>
-              </ng-template>
-            </kendo-grid-column>
-            <kendo-grid-column field="PubID" title="PubID" width="0">
-                <ng-template kendoGridEditTemplate let-dataItem="dataItem">
-                  <input [(ngModel)]="dataItem.PubID" kendoGridFocusable name="PubID" class="k-textbox" required/>
-                </ng-template>
-              </kendo-grid-column>
+          <ng-template kendoGridEditTemplate let-dataItem="dataItem">
+            <input [(ngModel)]="dataItem.AuthorID" kendoGridFocusable name="AuthorID" class="k-textbox" required/>
+          </ng-template>
+        </kendo-grid-column>
+        <kendo-grid-column field="CateID" title="CateID" width="0">
+          <ng-template kendoGridEditTemplate let-dataItem="dataItem">
+            <input [(ngModel)]="dataItem.CateID" kendoGridFocusable name="CateID" class="k-textbox" required/>
+          </ng-template>
+        </kendo-grid-column>
+        <kendo-grid-column field="PubID" title="PubID" width="0">
+          <ng-template kendoGridEditTemplate let-dataItem="dataItem">
+            <input [(ngModel)]="dataItem.PubID" kendoGridFocusable name="PubID" class="k-textbox" required/>
+          </ng-template>
+        </kendo-grid-column>
         <kendo-grid-column field="Title" title="Tựa sách" width="250">
           <ng-template kendoGridEditTemplate let-dataItem="dataItem">
             <input [(ngModel)]="dataItem.Title" kendoGridFocusable name="Title" class="k-textbox" required/>
@@ -74,9 +74,9 @@
           </ng-template>
         </kendo-grid-column>
         <kendo-grid-column field="ImgUrl" title="Hình ảnh">
-          <ng-template kendoGridEditTemplate let-dataItem="dataItem">
-            <input [(ngModel)]="dataItem.ImgUrl" kendoGridFocusable name="ImgUrl" class="k-textbox" required/>
-          </ng-template>
+          <ng-template kendoGridCellTemplate let-dataItem>
+            <img *ngIf="dataItem.ImgUrl!= null"  [src]="dataItem.ImgUrl"  style="height: 40px; width: 40px; " />
+            </ng-template>
         </kendo-grid-column>
         <kendo-grid-column field="Status" title="Trạng thái" width="250">
           <ng-template kendoGridEditTemplate let-dataItem="dataItem">

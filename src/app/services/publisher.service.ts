@@ -62,24 +62,14 @@ export class PublisherService {
     console.log('Update publisher : ' + JSON.stringify(oldPublisher));
 
     console.log(oldPublisher.PubID);
-    this.http.put(`${this.baseUrl}Publishers/${oldPublisher.PubID}`, JSON.stringify(oldPublisher), { headers: headers })
-      .map(response => response.json()).subscribe(data => {
-        this.dataStore.publisherList.forEach((t, i) => {
-          if (t.PubID === data.id) { this.dataStore.publisherList[i] = data; }
-        });
-      }, error => console.log('Could not update publisher.'));
+    return this.http.put(`${this.baseUrl}Publishers/${oldPublisher.PubID}`, JSON.stringify(oldPublisher), { headers: headers })
+      .map(response => response.json());
   };
 
   public removeItem(PubID: number) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json; charset=utf-8');
     console.log('removeItem:' + PubID);
-    this.http.delete(`${this.baseUrl}Publishers/${PubID}`, { headers: headers }).subscribe(response => {
-      this.dataStore.publisherList.forEach((t, i) => {
-        if (t.PubID === PubID) { this.dataStore.publisherList.splice(i, 1); }
-      });
-
-      this._publisherList.next(Object.assign({}, this.dataStore).publisherList);
-    }, error => console.log('Could not delete publisher.'));
+    return this.http.delete(`${this.baseUrl}Publishers/${PubID}`, { headers: headers });
   }
 }

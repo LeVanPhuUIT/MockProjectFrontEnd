@@ -31,7 +31,7 @@ export class EditBookComponent implements OnInit {
   private imageUrl: string;
   private bookEdit: Books;
   private form: NgForm;
-  public Title: string="";
+  public Title: string = "";
   public Summary: string;
   public CateID: number;
   public AuthorID: number;
@@ -50,7 +50,7 @@ export class EditBookComponent implements OnInit {
     'Price': new FormControl(),
     'Quantity': new FormControl(),
     'Status': new FormControl(),
-});
+  });
 
   constructor(public urlRouter: Router, private bookService: BookService,
     private categoryService: CategoryService, private authorService: AuthorService,
@@ -131,12 +131,26 @@ export class EditBookComponent implements OnInit {
   //   console.log(this.newBook);
   // }
 
+
   public editBook() {
     if (typeof this.imageUrl !== 'undefined' && this.imageUrl) {
       this.bookEdit.ImgUrl = this.imageUrl;
     }
-    this.bookService.updateBook(this.bookEdit);
-    this.urlRouter.navigateByUrl('/book-management');
+    this.bookService.updateBook(this.bookEdit).map(response => response.json())
+    .subscribe(result => {
+      // Handle result
+      console.log(result);
+      alert('update thành công');
+    },
+      error => {
+        alert('update thất bại');
+      },
+      () => {
+        // 'onCompleted' callback.
+        // No errors, route to new page here
+        this.urlRouter.navigateByUrl('/book-management');
+      });
+
   }
 
 }
