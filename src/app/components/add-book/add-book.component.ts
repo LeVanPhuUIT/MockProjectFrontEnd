@@ -10,6 +10,8 @@ import { PublisherService } from '../../services/publisher.service';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 import { Category } from '../../model/category';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+
 
 @Component({
   selector: 'app-add-book',
@@ -27,6 +29,26 @@ export class AddBookComponent implements OnInit {
   public imageUrlDefault = 'http://localhost:18595/image/default-image.jpg';
   public fileToUpload: File = null;
   private imageUrl: string;
+
+  addbookform = new FormGroup({
+    title: new FormControl('', Validators.required),
+    description: new FormControl('', Validators.required),
+    categoryid: new FormControl('', Validators.required),
+    authorid: new FormControl('', Validators.required),
+    publisherid: new FormControl('', Validators.required),
+    price: new FormControl('', Validators.required),
+    quantity: new FormControl('', Validators.required),
+    status: new FormControl('', Validators.required),
+  });
+
+  get title(): any { return this.addbookform.get('title'); }
+  get description(): any { return this.addbookform.get('description'); }
+  get categoryid(): any { return this.addbookform.get('categoryid'); }
+  get authorid(): any { return this.addbookform.get('authorid'); }
+  get publisherid(): any { return this.addbookform.get('publisherid'); }
+  get price(): any { return this.addbookform.get('price'); }
+  get quantity(): any { return this.addbookform.get('quantity'); }
+  get status(): any { return this.addbookform.get('status'); }
 
   constructor(public urlRouter: Router, private bookService: BookService,
     private categoryService: CategoryService, private authorService: AuthorService,
@@ -104,6 +126,6 @@ export class AddBookComponent implements OnInit {
         // 'onCompleted' callback.
         // No errors, route to new page here
         this.urlRouter.navigateByUrl('/book-management');
-      });;
+      });
   }
 }
