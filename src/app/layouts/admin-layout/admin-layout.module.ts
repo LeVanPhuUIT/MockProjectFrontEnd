@@ -33,6 +33,7 @@ import { EditBookComponent } from '../../components/edit-book/edit-book.componen
     CommonModule,
     RouterModule.forChild(AdminLayoutRoutes),
     FormsModule,
+    ReactiveFormsModule,
     MatButtonModule,
     MatRippleModule,
     MatInputModule,

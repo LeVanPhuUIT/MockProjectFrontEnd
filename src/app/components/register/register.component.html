@@ -1,24 +1,40 @@
-<!-- <div class="register-form">
-    <form action="/examples/actions/confirmation.php" method="post">
+<div class="register-form">
+    <form [formGroup]="loginform">
         <div class="avatar">
             <i class="material-icons">&#xE7FF;</i>
         </div>
         <h4 class="modal-title">Register</h4>
         <div class="form-group">
-            <input type="text" class="form-control" placeholder="Username" required="required">
+            <input type="text" class="form-control" placeholder="Username" required formControlName="username" id="Username">
+            <p *ngIf="!username?.hasError('required') && username?.invalid" class="alert alert-danger">
+                Please enter a valid username
+            </p>
         </div>
         <div class="form-group">
-            <input type="email" class="form-control" placeholder="Email" required="required" [formControl]="emailFormControl">
-            <p *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+            <input type="email" class="form-control" placeholder="Email" required formControlName="email">
+            <p *ngIf="loginform.email?.hasError('email') && !loginform.email?.hasError('required')" class="alert alert-danger">
                 Please enter a valid email address
             </p>
         </div>
         <div class="form-group">
-            <input type="password" class="form-control" placeholder="Password" required="required">
+            <input type="password" class="form-control" placeholder="Password" required="required" formControlName="password">
         </div>
         <div class="form-group">
-            <input type="password" class="form-control" placeholder="Conform password" required="required">
+            <input type="password" class="form-control" placeholder="Conform password" required="required" formControlName="repassword">
         </div>
         <input type="button" class="btn btn-primary btn-block btn-lg" value="Register" (click)="Login()">
     </form>
-</div> -->
+</div>
+
+<!-- <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div *ngIf="username?.invalid"> Name is too short. </div>
+    <input formControlName="username" placeholder="Username">
+
+    <div *ngIf="first?.invalid"> Name is too short. </div>
+
+    <input formControlName="first" placeholder="First name">
+    <input formControlName="last" placeholder="Last name">
+
+    <button type="submit">Submit</button>
+</form>
+<button (click)="setValue()">Set preset value</button> -->
