@@ -5,7 +5,6 @@ import { UserProfileComponent } from '../../user-profile/user-profile.component'
 import { TableListComponent } from '../../table-list/table-list.component';
 import { TypographyComponent } from '../../typography/typography.component';
 import { IconsComponent } from '../../icons/icons.component';
-import { MapsComponent } from '../../maps/maps.component';
 import { NotificationsComponent } from '../../notifications/notifications.component';
 import { UpgradeComponent } from '../../upgrade/upgrade.component';
 import { ListBookComponent } from '../../components/list-book/list-book.component';
@@ -15,6 +14,7 @@ import { BookManagementComponent } from '../../components/book-management/book-m
 import { AddBookComponent } from '../../components/add-book/add-book.component';
 import { EditBookComponent } from '../../components/edit-book/edit-book.component';
 import { NotFoundComponent } from '../../components/not-found/not-found.component';
+
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -64,7 +64,6 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'author-management',     component: AuthorManagementComponent },
     { path: 'publisher-management',     component: PublisherManagementComponent},
     { path: 'book-management',          component: BookManagementComponent },
-    { path: 'logout',           component: MapsComponent },
     { path: 'notifications',  component: NotificationsComponent },
     { path: 'upgrade',        component: UpgradeComponent },
     { path: 'add-book', component: AddBookComponent},
