@@ -58,6 +58,7 @@ export class AddBookComponent implements OnInit {
   get status(): any { return this.addbookform.get('status'); }
   get ImgUrl(): any { return this.addbookform.get('ImgUrl'); }
 
+
   constructor(public urlRouter: Router, private bookService: BookService,
     private categoryService: CategoryService, private authorService: AuthorService,
     private publisherService: PublisherService) {
@@ -145,4 +146,5 @@ export class AddBookComponent implements OnInit {
    public back(){
     this.urlRouter.navigateByUrl('/book-management');
    }
+
 }

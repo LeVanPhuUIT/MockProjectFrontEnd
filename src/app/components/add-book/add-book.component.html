@@ -82,6 +82,7 @@
                     số lượng không được nhỏ hơn 0
                 </p>
               </div>
+
               <span style="color: #417ff4 ; font-weight: bold">Chọn trạng thái</span>
               <select class="form-control" id="sel1" formControlName="status" name="status">
                 <option value="Đang bán">Đang bán</option>
@@ -103,6 +104,64 @@
               <img [src]="imageUrlDefault" style="width:500px;height:500px">
               <br>
               <input formControlName="ImgUrl" type="file" #Image accept="image/*" (change)="handleFileInput($event.target.files);">
+            </div>
+          </div>
+        </form>
+        <form [formGroup]="addbookform">
+          <div class="row" style="background-color: white">
+            <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+              <div class="form-group">
+                <label for="title">Tựa sách</label>
+                <input type="text" class="form-control" id="title" formControlName="title">
+              </div>
+              <div class="form-group">
+                <label for="description">Mô tả</label>
+                <input type="text" class="form-control" id="description" formControlName="description">
+              </div>
+              <div class="form-group">
+                <label for="category">Thể loại</label>
+                <select class="form-group" multiple title="chọn các thể loại sau..." formControlName="categoryid">
+                  <option *ngFor="let item of listCategoryName" [value]="item.CateID">{{item.CateName}}</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="authorid">Tác Giả</label>
+                <select class="form-group" multiple title="chọn các thể loại sau..." formControlName="authorid">
+                  <option *ngFor="let item of listAuthorName" [value]="item.AuthorID">{{item.AuthorName}}</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="publisher">Nhà xuất bản</label>
+                <select class="form-group" multiple title="chọn các thể loại sau..." formControlName="publisherid">
+                  <option *ngFor="let item of listPublisher" [value]="item.PubID">{{item.Name}}</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="price">Giá</label>
+                <input type="number" min="1" class="form-control" id="price" formControlName="price">
+              </div>
+              <div class="form-group">
+                <label for="quantity">Số lượng</label>
+                <input type="number" min="1" class="form-control" id="quantity" formControlName="quantity">
+              </div>
+              <span style="color: #417ff4 ; font-weight: bold">Chọn trạng thái</span>
+              <select class="form-control" id="sel1" formControlName="status" name="status">
+                <option value="Đang bán">Đang bán</option>
+                <option value="Dừng bán">Dừng bán</option>
+                <option value="Chưa bán">Chưa bán</option>
+              </select>
+              <br>
+              <button type="button" class="btn btn-danger">
+                <span class="glyphicon glyphicon-arrow-left"></span>Quay lại
+              </button>
+              <button type="button" class="btn btn-success" (click)="senderData(formBook); OnSubmit(Image); addBook();">
+                <span class="glyphicon glyphicon-arrow-right"></span>Tạo
+              </button>
+            </div>
+            <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
+              <img [src]="imageUrlDefault" style="width:500px;height:500px">
+              <br>
+              <input type="file" #Image accept="image/*" (change)="handleFileInput($event.target.files);">
             </div>
           </div>
         </form>
