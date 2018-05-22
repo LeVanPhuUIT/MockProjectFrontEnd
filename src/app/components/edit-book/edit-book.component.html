@@ -1,4 +1,4 @@
-<div class="main-content">
+<!-- <div class="main-content">
     <div class="container-fluid">
       <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -67,4 +67,117 @@
         </div>
       </div>
     </div>
+  </div> -->
+
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <h1>Thêm sách</h1>
+          </div>
+        </div>
+        <div class="row" style="background-color: white">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="row">
+              <div>
+                <h3>Thông tin sách</h3>
+                <br>
+                <p>Vui lòng điền đầy đủ thông tin trước khi tạo</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <form [formGroup]="editbookform">
+          <div class="row" style="background-color: white">
+            <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+              <div class="form-group">
+                <span style="color: #417ff4 ; font-weight: bold">Tựa sách</span>
+                <input type="text" class="form-control" id="title" formControlName="title">
+                <p *ngIf="title?.invalid && (title?.dirty || title?.touched)" class="alert alert-danger">
+                  Tựa sách không được để trống
+                </p>
+              </div>
+              <div class="form-group">
+                <span style="color: #417ff4 ; font-weight: bold">Mô tả</span>
+                <input type="text" class="form-control" id="summary" formControlName="summary">
+                <p *ngIf="summary?.invalid && (summary?.dirty || summary?.touched)" class="alert alert-danger">
+                  Mô tả không được để trống
+                </p>
+              </div>
+              <div class="form-group">
+                <span style="color: #417ff4 ; font-weight: bold">Thể loại</span>
+                <select class="form-control" formControlName="cateid">
+                  <option *ngFor="let item of listCategoryName" [value]="item.CateID">{{item.CateName}}</option>
+                </select>
+                <p *ngIf="cateid?.invalid && (cateid?.dirty || cateid?.touched)" class="alert alert-danger">
+                  Thể loại không được để trống
+                </p>
+              </div>
+              <div class="form-group">
+                <span style="color: #417ff4 ; font-weight: bold">Tác giả</span>
+                <select class="form-control" id="sel1" formControlName="authorid" name="author">
+                  <option *ngFor="let item of listAuthorName" [value]="item.AuthorID">{{item.AuthorName}}</option>
+                </select>
+                <p *ngIf="authorid?.invalid && (authorid?.dirty || authorid?.touched)" class="alert alert-danger">
+                  Tác giả không được để trống
+                </p>
+              </div>
+              <div class="form-group">
+                <span style="color: #417ff4 ; font-weight: bold">Nhà xuất bản</span>
+                <select class="form-control" id="sel1" formControlName="pubid" name="publisher">
+                  <option *ngFor="let item of listPublisher" [value]="item.PubID">{{item.Name}}</option>
+                </select>
+                <p *ngIf="pubid?.invalid && (pubid?.dirty || pubid?.touched)" class="alert alert-danger">
+                  Nhà xuất bản không được để trống
+                </p>
+              </div>
+              <div class="form-group">
+                <span style="color: #417ff4 ; font-weight: bold">Giá</span>
+                <input type="number" min="1" class="form-control" id="price" formControlName="price">
+                <p *ngIf="price?.errors?.required && (price?.dirty || price?.touched)" class="alert alert-danger">
+                  Giá không được để trống
+                </p>
+                <p *ngIf="price?.errors?.min && (price?.dirty || price?.touched)" class="alert alert-danger">
+                  Giá không được nhỏ hơn 0
+                </p>
+              </div>
+              <div class="form-group">
+                <span style="color: #417ff4 ; font-weight: bold">Số lượng</span>
+                <input type="number" min="1" class="form-control" id="quantity" formControlName="quantity">
+                <p *ngIf="quantity?.errors?.required && (quantity?.dirty || quantity?.touched)" class="alert alert-danger">
+                  Số lượng không được để trống
+                </p>
+                <p *ngIf="quantity?.errors?.min && (price?.dirty || price?.touched)" class="alert alert-danger">
+                  số lượng không được nhỏ hơn 0
+                </p>
+              </div>
+              <span style="color: #417ff4 ; font-weight: bold">Chọn trạng thái</span>
+              <select class="form-control" id="sel1" formControlName="status" name="status">
+                <option value="Đang bán">Đang bán</option>
+                <option value="Dừng bán">Dừng bán</option>
+                <option value="Chưa bán">Chưa bán</option>
+              </select>
+              <p *ngIf="status?.invalid && (status?.dirty || status?.touched)" class="alert alert-danger">
+                Trạng thái không được để trống
+              </p>
+              <br>
+              <button type="button" class="btn btn-danger" (click)="back();">
+                <span class="glyphicon glyphicon-arrow-left"></span>Quay lại
+              </button>
+              <button [disabled]="!editbookform?.valid" type="button" class="btn btn-success" (click)="OnSubmit(Image); editBook();">
+                <span class="glyphicon glyphicon-arrow-right"></span>Cập nhật
+              </button>
+            </div>
+            <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
+              <img [src]="imageUrlDefault" style="width:500px;height:500px">
+              <br>
+              <input formControlName="ImgUrl" type="file" #Image accept="image/*" (change)="handleFileInput($event.target.files);">
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
+</div>

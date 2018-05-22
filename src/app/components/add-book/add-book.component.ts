@@ -10,6 +10,8 @@ import { PublisherService } from '../../services/publisher.service';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 import { Category } from '../../model/category';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+
 
 @Component({
   selector: 'app-add-book',
@@ -27,6 +29,34 @@ export class AddBookComponent implements OnInit {
   public imageUrlDefault = 'http://localhost:18595/image/default-image.jpg';
   public fileToUpload: File = null;
   private imageUrl: string;
+
+  addbookform = new FormGroup({
+    title: new FormControl('', Validators.required),
+    summary: new FormControl('', Validators.required),
+    cateid: new FormControl('', Validators.required),
+    authorid: new FormControl('', Validators.required),
+    pubid: new FormControl('', Validators.required),
+    price: new FormControl('', [
+      Validators.required,
+      Validators.min(1)
+    ]),
+    quantity: new FormControl('',[
+      Validators.required,
+      Validators.min(1)
+    ]),
+    status: new FormControl('', Validators.required),
+    ImgUrl: new FormControl('', Validators.required),
+  });
+
+  get title(): any { return this.addbookform.get('title'); }
+  get summary(): any { return this.addbookform.get('summary'); }
+  get cateid(): any { return this.addbookform.get('cateid'); }
+  get authorid(): any { return this.addbookform.get('authorid'); }
+  get pubid(): any { return this.addbookform.get('pubid'); }
+  get price(): any { return this.addbookform.get('price'); }
+  get quantity(): any { return this.addbookform.get('quantity'); }
+  get status(): any { return this.addbookform.get('status'); }
+  get ImgUrl(): any { return this.addbookform.get('ImgUrl'); }
 
   constructor(public urlRouter: Router, private bookService: BookService,
     private categoryService: CategoryService, private authorService: AuthorService,
@@ -92,18 +122,27 @@ export class AddBookComponent implements OnInit {
   }
 
   public addBook() {
+    this.newBook = this.addbookform.value as Books;
+    this.newBook.ImgUrl = this.imageUrl;
+    console.log(this.newBook);
     this.bookService.addBook(this.newBook).subscribe(result => {
       // Handle result
       console.log(result);
       alert('update thành công');
+      this.addbookform.reset();
     },
       error => {
         alert('update thất bại');
+        alert(error);
       },
       () => {
         // 'onCompleted' callback.
         // No errors, route to new page here
-        this.urlRouter.navigateByUrl('/book-management');
-      });;
-  }
+        //this.urlRouter.navigateByUrl('/book-management');
+      });
+   }
+
+   public back(){
+    this.urlRouter.navigateByUrl('/book-management');
+   }
 }

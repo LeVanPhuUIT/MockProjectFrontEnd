@@ -40,17 +40,35 @@ export class EditBookComponent implements OnInit {
   public Quantity: number;
   public Status: string;
 
-  public editForm: FormGroup = new FormGroup({
-    'Title': new FormControl('', Validators.required),
-    'Summary': new FormControl(),
-    'Image': new FormControl(),
-    'CategoryID': new FormControl('', Validators.required),
-    'AuthorID': new FormControl('', Validators.required),
-    'PublisherID': new FormControl(),
-    'Price': new FormControl(),
-    'Quantity': new FormControl(),
-    'Status': new FormControl(),
+  editbookform = new FormGroup({
+    bookid: new FormControl(''),
+    title: new FormControl('', Validators.required),
+    summary: new FormControl('', Validators.required),
+    cateid: new FormControl('', Validators.required),
+    authorid: new FormControl('', Validators.required),
+    pubid: new FormControl('', Validators.required),
+    price: new FormControl('', [
+      Validators.required,
+      Validators.min(1)
+    ]),
+    quantity: new FormControl('', [
+      Validators.required,
+      Validators.min(1)
+    ]),
+    status: new FormControl('', Validators.required),
+    ImgUrl: new FormControl('', Validators.required),
   });
+
+  get bookid(): any { return this.editbookform.get('bookid'); }
+  get title(): any { return this.editbookform.get('title'); }
+  get summary(): any { return this.editbookform.get('summary'); }
+  get cateid(): any { return this.editbookform.get('cateid'); }
+  get authorid(): any { return this.editbookform.get('authorid'); }
+  get pubid(): any { return this.editbookform.get('pubid'); }
+  get price(): any { return this.editbookform.get('price'); }
+  get quantity(): any { return this.editbookform.get('quantity'); }
+  get status(): any { return this.editbookform.get('status'); }
+  get ImgUrl(): any { return this.editbookform.get('imgUrl'); }
 
   constructor(public urlRouter: Router, private bookService: BookService,
     private categoryService: CategoryService, private authorService: AuthorService,
@@ -68,19 +86,24 @@ export class EditBookComponent implements OnInit {
 
   //book edit
   private loadData() {
-    // this.bookEdit = this.bookService.bookEdit;
-    // this.Title = this.bookEdit.Title;
-    // this.Summary = this.bookEdit.Summary;
-    // this.CateID = this.bookEdit.CateID;
-    // this.AuthorID = this.bookEdit.AuthorID;
-    // this.PubID = this.bookEdit.PubID;
-    // this.Price = this.bookEdit.Price;
-    // this.Quantity = this.bookEdit.Quantity;
-    // this.Status = this.bookEdit.Status;
     console.log('data send is: ');
     console.log(this.shareService.bookEdit);
     this.bookEdit = this.shareService.bookEdit;
     this.imageUrlDefault = this.shareService.bookEdit.ImgUrl;
+
+    this.editbookform.setValue({
+      bookid: this.bookEdit.BookID,
+      title: this.bookEdit.Title,
+      summary: this.bookEdit.Summary,
+      cateid: this.bookEdit.CateID,
+      authorid: this.bookEdit.AuthorID,
+      pubid: this.bookEdit.PubID,
+      price: this.bookEdit.Price,
+      quantity: this.bookEdit.Quantity,
+      status: this.bookEdit.Status,
+      ImgUrl: this.bookEdit.ImgUrl,
+
+    });
   }
 
   private onLoad() {
@@ -133,8 +156,11 @@ export class EditBookComponent implements OnInit {
 
 
   public editBook() {
+    this.bookEdit = this.editbookform.value as Books;
+    this.bookEdit.BookID = this.shareService.bookEdit.BookID;
     if (typeof this.imageUrl !== 'undefined' && this.imageUrl) {
       this.bookEdit.ImgUrl = this.imageUrl;
+      //this.editbookform.setValue(ImgUrl:this.imageUrl);
     }
     this.bookService.updateBook(this.bookEdit).map(response => response.json())
     .subscribe(result => {
@@ -152,5 +178,9 @@ export class EditBookComponent implements OnInit {
       });
 
   }
+
+  public back(){
+    this.urlRouter.navigateByUrl('/book-management');
+   }
 
 }
